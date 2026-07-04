@@ -1,0 +1,21 @@
+# Place this at the root of the FRONTEND repo/folder (where
+# harmony-acupuncture.html and harmony-dashboard.html live), not the backend.
+
+[build]
+  publish = "."
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+
+# Redirect the dashboard to a non-guessable-but-still-auth-gated path is not
+# real security — actual protection is Supabase Auth login on that page
+# (see harmony-dashboard.html's login flow). This just avoids indexing it.
+[[headers]]
+  for = "/dashboard*"
+  [headers.values]
+    X-Robots-Tag = "noindex"

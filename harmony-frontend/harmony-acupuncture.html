@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Harmony Acupuncture & Wellness — Atlanta, GA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Inter:wght@300;400;500&family=Noto+Serif+SC:wght@300;400;500&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --ink: #1e1a14;
+  --ink-soft: #3a3228;
+  --cream: #faf6ef;
+  --cream-mid: #f2ebe0;
+  --cream-dark: #e8dfd0;
+  --stone: #c4b89e;
+  --sage: #3d6035;
+  --sage-dark: #274020;
+  --sage-light: #e4ede0;
+  --sage-mid: #a8c4a0;
+  --red: #8b1a1a;
+  --red-light: #f5e8e8;
+  --gold: #7a5a10;
+  --gold-mid: #c4922a;
+  --gold-light: #fdf3e0;
+  --text-primary: #1e1a14;
+  --text-secondary: #3a3228;
+  --text-muted: #6a5e50;
+  --border: rgba(80,60,30,0.14);
+  --border-mid: rgba(80,60,30,0.22);
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  html { scroll-behavior: auto; }
+}
+html { scroll-behavior: smooth; }
+body { font-family: 'Inter', sans-serif; background: var(--cream); color: var(--text-primary); font-size: 16px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+/* LANG */
+body.zh { font-family: 'Noto Serif SC', 'Inter', serif; }
+body.zh .zh-show { display: inline; } body.zh .en-show { display: none; }
+body:not(.zh) .zh-show { display: none; } body:not(.zh) .en-show { display: inline; }
+body.zh .zh-block { display: block; } body.zh .en-block { display: none; }
+body:not(.zh) .zh-block { display: none; } body:not(.zh) .en-block { display: block; }
+
+/* SKIP */
+.skip-link { position: absolute; top: -100px; left: 1rem; z-index: 9999; background: var(--ink); color: #fff; padding: 10px 18px; border-radius: 4px; font-size: 14px; text-decoration: none; font-weight: 500; transition: top .15s; }
+.skip-link:focus { top: 1rem; }
+:focus-visible { outline: 3px solid var(--gold-mid); outline-offset: 3px; border-radius: 3px; }
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 3rem; height: 68px;
+  background: rgba(250,246,239,0.96); backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 500; color: var(--ink); text-decoration: none; letter-spacing: 0.02em; display: flex; align-items: center; gap: 10px; }
+.nav-logo-seal { width: 28px; height: 28px; flex-shrink: 0; }
+.nav-logo span { color: var(--sage); }
+.nav-links { display: flex; gap: 2rem; list-style: none; }
+.nav-links a { font-size: 13px; color: var(--text-muted); text-decoration: none; letter-spacing: 0.03em; transition: color .2s; }
+.nav-links a:hover { color: var(--ink); }
+.nav-right { display: flex; align-items: center; gap: 12px; }
+.lang-toggle { display: flex; border: 1px solid var(--border); border-radius: 20px; overflow: hidden; background: var(--cream-mid); }
+.lang-btn { padding: 5px 12px; font-size: 12px; border: none; background: none; cursor: pointer; color: var(--text-muted); font-family: 'Inter', sans-serif; transition: all .15s; }
+.lang-btn.active { background: var(--sage); color: #fff; font-weight: 500; }
+.nav-cta { background: var(--sage); color: #fff; padding: 9px 20px; border-radius: 40px; font-size: 13px; font-weight: 500; text-decoration: none; letter-spacing: 0.02em; transition: background .2s; white-space: nowrap; }
+.nav-cta:hover { background: var(--sage-dark); }
+
+/* HERO */
+.hero {
+  min-height: 100vh; display: flex; align-items: center;
+  padding: 0 3rem; position: relative; overflow: hidden;
+  background: var(--cream);
+}
+/* Rice paper texture overlay */
+.hero::before {
+  content: ''; position: absolute; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity: 0.6; pointer-events: none; z-index: 0;
+}
+.hero-brush-bg { position: absolute; right: -2%; top: 50%; transform: translateY(-50%); width: 52vw; max-width: 700px; pointer-events: none; z-index: 1; }
+.hero-calligraphy { position: absolute; right: 3rem; top: 50%; transform: translateY(-50%); z-index: 2; pointer-events: none; }
+.hero-content { position: relative; z-index: 3; max-width: 600px; padding-top: 68px; }
+.hero-eyebrow { font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.6rem; display: flex; align-items: center; gap: 12px; }
+.hero-eyebrow::before { content: ''; display: block; width: 28px; height: 1px; background: var(--gold); }
+.hero h1 { font-family: 'Cormorant Garamond', serif; font-size: clamp(42px, 6vw, 76px); font-weight: 300; line-height: 1.08; color: var(--ink); margin-bottom: 1.5rem; letter-spacing: -0.01em; }
+.hero h1 em { font-style: italic; color: var(--sage); }
+.hero-sub { font-size: 15px; font-weight: 300; color: var(--text-secondary); line-height: 1.8; max-width: 440px; margin-bottom: 2.5rem; }
+.hero-actions { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+.btn-primary { background: var(--sage); color: #fff; padding: 13px 28px; border-radius: 40px; font-size: 14px; font-weight: 500; text-decoration: none; letter-spacing: 0.02em; transition: background .2s; display: inline-block; border: none; cursor: pointer; font-family: 'Inter', sans-serif; }
+.btn-primary:hover { background: var(--sage-dark); }
+.btn-outline { color: var(--sage-dark); font-size: 14px; font-weight: 500; text-decoration: none; display: flex; align-items: center; gap: 8px; border: 1.5px solid var(--sage-mid); padding: 12px 22px; border-radius: 40px; cursor: pointer; font-family: 'Inter', sans-serif; transition: all .2s; background: none; }
+.btn-outline:hover { border-color: var(--sage); color: var(--sage); }
+
+/* BRUSH DIVIDER */
+.brush-divider { width: 100%; overflow: hidden; line-height: 0; }
+.brush-divider svg { display: block; width: 100%; }
+
+/* INTRO STRIP */
+.intro-strip { background: #fff; padding: 2.5rem 3rem; display: flex; gap: 3rem; align-items: center; border-bottom: 1px solid var(--border); position: relative; overflow: hidden; }
+.intro-strip::after { content: '和'; position: absolute; right: 2rem; font-family: 'Noto Serif SC', serif; font-size: 120px; color: rgba(61,96,53,0.04); pointer-events: none; line-height: 1; top: 50%; transform: translateY(-50%); }
+.intro-stat { text-align: center; flex: 1; }
+.intro-stat .number { font-family: 'Cormorant Garamond', serif; font-size: 38px; font-weight: 300; color: var(--sage-dark); line-height: 1; }
+.intro-stat .stat-label { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+.intro-divider { width: 1px; height: 48px; background: var(--stone); }
+.intro-quote { flex: 3; font-family: 'Cormorant Garamond', serif; font-size: 20px; font-style: italic; color: var(--ink-soft); line-height: 1.6; padding-left: 2rem; border-left: 2px solid var(--sage-mid); }
+
+/* SECTIONS */
+section { padding: 5.5rem 3rem; position: relative; }
+.section-eyebrow { font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+.section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(30px, 3.5vw, 46px); font-weight: 400; line-height: 1.15; color: var(--ink); margin-bottom: 1.5rem; }
+.section-body { font-size: 15px; font-weight: 300; color: var(--text-secondary); line-height: 1.8; max-width: 540px; }
+
+/* SERVICES */
+.services { background: var(--cream); }
+.services-inner { max-width: 1100px; margin: 0 auto; }
+.services-header { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 3rem; flex-wrap: wrap; gap: 1rem; }
+.services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 20px; }
+.service-card {
+  background: #fff; padding: 2rem 1.75rem;
+  border: 1px solid var(--border); border-radius: 2px;
+  position: relative; overflow: hidden;
+  transition: box-shadow .2s, transform .2s;
+}
+.service-card:hover { box-shadow: 0 8px 32px rgba(61,96,53,0.1); transform: translateY(-2px); }
+.service-card::before { content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--sage-mid); }
+.service-brush { position: absolute; bottom: -8px; right: -8px; opacity: 0.06; pointer-events: none; }
+.service-icon-wrap { margin-bottom: 1.25rem; }
+.service-name { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 500; margin-bottom: 0.5rem; color: var(--ink); }
+.service-zh { font-family: 'Noto Serif SC', serif; font-size: 13px; color: var(--text-muted); margin-bottom: 0.75rem; letter-spacing: 0.08em; }
+.service-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.75; }
+
+/* ABOUT */
+.about { background: var(--cream-mid); overflow: hidden; }
+.about::before { content: '仁'; position: absolute; left: -2rem; top: 50%; transform: translateY(-50%); font-family: 'Noto Serif SC', serif; font-size: 280px; color: rgba(61,96,53,0.04); pointer-events: none; line-height: 1; }
+.about-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: center; position: relative; z-index: 1; }
+.cred-list { margin-top: 2rem; display: flex; flex-direction: column; gap: 12px; list-style: none; }
+.cred-item { display: flex; align-items: flex-start; gap: 12px; font-size: 14px; color: var(--text-secondary); }
+.cred-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--gold-mid); flex-shrink: 0; margin-top: 7px; }
+.about-visual { position: relative; display: flex; align-items: center; justify-content: center; }
+.about-img-frame {
+  width: 100%; max-width: 360px; aspect-ratio: 3/4;
+  background: linear-gradient(160deg, #e8dfd0 0%, #ddd4c0 100%);
+  border-radius: 2px; position: relative; overflow: hidden;
+  border: 1px solid var(--stone);
+}
+.about-img-frame::after { content: '針灸'; font-family: 'Noto Serif SC', serif; font-size: 80px; color: rgba(90,75,50,0.08); position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); line-height: 1; }
+.about-frame-brush { position: absolute; bottom: 0; left: 0; right: 0; pointer-events: none; }
+/* WAX SEAL */
+.wax-seal { position: absolute; bottom: -20px; right: -20px; z-index: 2; filter: drop-shadow(2px 4px 8px rgba(139,26,26,0.25)); }
+
+/* PROCESS */
+.process { background: #fff; }
+.process-inner { max-width: 1100px; margin: 0 auto; }
+.process-brush-row { display: flex; align-items: center; gap: 0; margin-top: 3rem; }
+.process-step { flex: 1; padding: 2rem 1.5rem; position: relative; }
+.process-step::after { content: ''; position: absolute; right: 0; top: 25%; height: 50%; width: 1px; background: var(--stone); }
+.process-step:last-child::after { display: none; }
+.step-kanji { font-family: 'Noto Serif SC', serif; font-size: 36px; color: var(--sage-mid); margin-bottom: 0.75rem; line-height: 1; }
+.step-title { font-size: 15px; font-weight: 500; color: var(--ink); margin-bottom: 0.75rem; }
+.step-body { font-size: 13px; color: var(--text-secondary); line-height: 1.75; }
+.process-brush-underline { margin-top: 2.5rem; }
+
+/* BOOKING */
+.booking { background: var(--cream-mid); }
+.booking-inner { max-width: 960px; margin: 0 auto; }
+.booking-header { text-align: center; margin-bottom: 2.5rem; }
+.booking-header .section-body { margin: 0 auto; text-align: center; }
+.booking-options { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 1.5rem; }
+.booking-option-card { background: #fff; border: 1px solid var(--border); border-radius: 2px; padding: 2rem; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 14px; transition: box-shadow .2s; position: relative; overflow: hidden; }
+.booking-option-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--sage-mid); }
+.booking-option-card:hover { box-shadow: 0 4px 24px rgba(61,96,53,0.1); }
+.booking-option-icon { width: 52px; height: 52px; border-radius: 50%; background: var(--sage-light); display: flex; align-items: center; justify-content: center; color: var(--sage); }
+.booking-option-icon svg { width: 24px; height: 24px; }
+.booking-option-title { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 500; color: var(--ink); }
+.booking-option-desc { font-size: 13px; color: var(--text-muted); line-height: 1.65; }
+.booking-option-cta { display: inline-flex; align-items: center; gap: 8px; background: var(--sage); color: #fff; padding: 11px 24px; border-radius: 40px; font-size: 13px; font-weight: 500; text-decoration: none; border: none; cursor: pointer; font-family: 'Inter', sans-serif; transition: background .2s; }
+.booking-option-cta:hover { background: var(--sage-dark); }
+.booking-option-cta.outline { background: none; color: var(--sage-dark); border: 1.5px solid var(--sage-mid); }
+.booking-option-cta.outline:hover { background: var(--sage-light); }
+.booking-form-wrap { background: #fff; border: 1px solid var(--border); border-radius: 2px; overflow: hidden; display: none; }
+.booking-form-wrap.open { display: block; }
+.booking-form-header { padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+.booking-form-header h3 { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 400; }
+.close-form { background: none; border: 1px solid var(--border); border-radius: 4px; width: 40px; height: 40px; cursor: pointer; color: var(--text-muted); font-size: 18px; display: flex; align-items: center; justify-content: center; }
+
+/* STEP INDICATOR — big, simple, always shows progress */
+.step-indicator { display: flex; align-items: center; justify-content: center; gap: 6px; padding: 1.5rem 1rem 0; }
+.step-dot { width: 36px; height: 36px; border-radius: 50%; background: var(--cream-dark); color: var(--text-muted); display: flex; align-items: center; justify-content: center; font-size: 15px; font-weight: 600; font-family: 'Inter', sans-serif; transition: all .2s; }
+.step-dot.active { background: var(--sage); color: #fff; }
+.step-dot.done { background: var(--sage-mid); color: #fff; }
+.step-line { width: 28px; height: 2px; background: var(--cream-dark); }
+
+.booking-body-inner { padding: 1.75rem; max-width: 480px; margin: 0 auto; }
+.step-panel { display: none; }
+.step-panel.active { display: block; }
+.step-title { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 500; color: var(--ink); margin-bottom: 1.25rem; text-align: center; }
+
+/* Bigger buttons for easier tapping — sized for less tech-savvy and
+   older visitors, not just mobile breakpoints */
+.big-next-btn, .big-back-btn { width: 100%; padding: 16px; font-size: 17px; font-weight: 600; border-radius: 6px; cursor: pointer; font-family: 'Inter', sans-serif; margin-top: 1rem; }
+.big-next-btn { background: var(--sage); color: #fff; border: none; }
+.big-next-btn:hover { background: var(--sage-dark); }
+.big-back-btn { background: none; border: none; color: var(--text-muted); font-size: 15px; margin-top: 1.25rem; padding: 10px; }
+.big-back-btn:hover { color: var(--ink); }
+
+.date-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.date-btn { padding: 16px 8px; border: 2px solid var(--border); border-radius: 8px; background: var(--cream); cursor: pointer; text-align: center; font-family: 'Inter', sans-serif; transition: all .15s; }
+.date-btn:hover { border-color: var(--sage-mid); }
+.date-btn[aria-pressed="true"] { border-color: var(--sage); background: var(--sage-light); }
+.date-btn .date-day { font-size: 13px; color: var(--text-muted); display: block; margin-bottom: 4px; }
+.date-btn .date-num { font-size: 22px; font-weight: 600; color: var(--ink); display: block; font-family: 'Cormorant Garamond', serif; }
+
+.booking-summary { background: var(--sage-light); border-radius: 6px; padding: 14px 16px; margin-bottom: 1.5rem; font-size: 15px; color: var(--ink-soft); text-align: center; }
+
+.apt-type-btn { display: flex; align-items: center; gap: 14px; padding: 18px 16px; border: 2px solid var(--border); border-radius: 8px; cursor: pointer; width: 100%; background: var(--cream); text-align: left; font-family: 'Inter', sans-serif; transition: all .15s; margin-bottom: 10px; }
+.apt-type-btn:hover { border-color: var(--sage-mid); background: var(--sage-light); }
+.apt-type-btn[aria-pressed="true"] { border-color: var(--sage); background: var(--sage-light); }
+.apt-type-btn[aria-pressed="true"] .apt-type-dot { background: var(--sage); border-color: var(--sage); }
+.apt-type-name { font-size: 17px; font-weight: 600; color: var(--ink); }
+.apt-type-desc { font-size: 14px; color: var(--text-muted); margin-top: 2px; }
+
+.slots-heading { font-size: 15px; font-weight: 600; color: var(--ink); margin-bottom: 10px; }
+.slots-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+.slot-btn { padding: 16px 10px; border-radius: 8px; border: 2px solid var(--border); background: transparent; font-size: 16px; font-weight: 500; color: var(--ink); cursor: pointer; transition: all .15s; font-family: 'Inter', sans-serif; }
+.slot-btn:hover:not(:disabled) { border-color: var(--sage); color: var(--sage-dark); }
+.slot-btn:disabled { color: var(--stone); border-color: var(--cream-dark); cursor: not-allowed; text-decoration: line-through; }
+.slot-btn[aria-pressed="true"] { background: var(--sage); border-color: var(--sage); color: #fff; }
+
+.form-group { margin-bottom: 16px; }
+.form-group label { display: block; font-size: 15px; font-weight: 500; margin-bottom: 6px; color: var(--ink); }
+.form-group input, .form-group textarea { width: 100%; padding: 13px 14px; font-size: 16px; border: 2px solid var(--border); border-radius: 6px; font-family: 'Inter', sans-serif; }
+.form-group textarea { resize: vertical; min-height: 80px; }
+.form-group input:focus, .form-group textarea:focus { border-color: var(--sage); outline: none; }
+
+.submit-btn { width: 100%; padding: 17px; background: var(--sage); color: #fff; border: none; border-radius: 6px; font-size: 17px; font-family: 'Inter', sans-serif; cursor: pointer; margin-top: 8px; transition: background .2s; font-weight: 600; }
+.submit-btn:hover { background: var(--sage-dark); }
+.submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+.form-note { text-align: center; margin-top: 12px; font-size: 15px; min-height: 20px; }
+.call-banner { background: var(--ink-soft); color: #fff; border-radius: 2px; padding: 2rem 2.5rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap; margin-top: 1.5rem; position: relative; overflow: hidden; }
+.call-banner::after { content: '電'; font-family: 'Noto Serif SC', serif; font-size: 100px; color: rgba(255,255,255,0.04); position: absolute; right: 8rem; top: 50%; transform: translateY(-50%); pointer-events: none; }
+.call-banner h3 { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 400; margin-bottom: 4px; }
+.call-banner p { font-size: 13px; color: rgba(255,255,255,0.6); }
+.call-btn { display: inline-flex; align-items: center; gap: 10px; background: #fff; color: var(--ink); padding: 13px 26px; border-radius: 40px; font-size: 15px; font-weight: 500; text-decoration: none; white-space: nowrap; transition: opacity .2s; }
+.call-btn:hover { opacity: 0.9; }
+.call-btn svg { width: 18px; height: 18px; }
+
+/* TESTIMONIALS */
+.testimonials { background: var(--cream); }
+.test-inner { max-width: 1100px; margin: 0 auto; }
+.test-header { text-align: center; margin-bottom: 3rem; }
+.test-header .section-body { margin: 0 auto; }
+.test-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.test-card { padding: 1.75rem; border: 1px solid var(--border); border-radius: 2px; background: #fff; position: relative; }
+.test-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--sage-mid), transparent); }
+.test-stars { color: var(--gold-mid); font-size: 12px; margin-bottom: 10px; letter-spacing: 3px; }
+.test-quote { font-family: 'Cormorant Garamond', serif; font-size: 17px; font-style: italic; color: var(--ink-soft); line-height: 1.65; margin-bottom: 1rem; }
+.test-quote::before { content: '\201C'; color: var(--gold-mid); font-size: 28px; line-height: 0; vertical-align: -8px; margin-right: 2px; }
+.test-author { font-size: 12px; color: var(--text-muted); }
+
+/* FOOTER */
+footer { background: var(--ink); color: rgba(255,255,255,0.6); padding: 4rem 3rem 2rem; position: relative; overflow: hidden; }
+footer::before { content: '和'; font-family: 'Noto Serif SC', serif; font-size: 400px; color: rgba(255,255,255,0.025); position: absolute; right: -2rem; bottom: -4rem; pointer-events: none; line-height: 1; }
+.footer-inner { max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; }
+.footer-top { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+.footer-brand .logo { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 400; color: #fff; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 10px; }
+.footer-brand p { font-size: 13px; line-height: 1.75; max-width: 250px; }
+.footer-col h2 { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.85); margin-bottom: 1rem; font-weight: 500; }
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+.footer-col ul li { font-size: 13px; }
+.footer-col ul a { color: rgba(255,255,255,0.5); text-decoration: none; transition: color .15s; }
+.footer-col ul a:hover { color: #fff; }
+.footer-bottom { border-top: 1px solid rgba(255,255,255,0.08); padding-top: 1.5rem; display: flex; justify-content: space-between; font-size: 12px; flex-wrap: wrap; gap: 8px; }
+.footer-bottom a { color: rgba(255,255,255,0.3); text-decoration: none; }
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  nav { padding: 0 1.25rem; } .nav-links { display: none; }
+  section { padding: 3.5rem 1.5rem; } .hero { padding: 0 1.5rem; }
+  .hero-calligraphy { display: none; } .hero-brush-bg { opacity: 0.06; }
+  .intro-strip { flex-direction: column; gap: 1.5rem; padding: 2rem 1.5rem; }
+  .intro-divider { width: 40px; height: 1px; }
+  .intro-quote { border-left: none; border-top: 1px solid var(--sage-mid); padding-left: 0; padding-top: 1.5rem; }
+  .about-inner { grid-template-columns: 1fr; gap: 3rem; } .about-visual { display: none; }
+  .booking-options { grid-template-columns: 1fr; }
+  .date-grid { grid-template-columns: repeat(2, 1fr); }
+  .test-grid { grid-template-columns: 1fr; } .process-brush-row { flex-direction: column; } .process-step::after { display: none; }
+  .footer-top { grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .call-banner { flex-direction: column; text-align: center; }
+}
+</style>
+</head>
+<body>
+<a href="#main-content" class="skip-link"><span class="en-show">Skip to main content</span><span class="zh-show">跳到主要内容</span></a>
+
+<!-- NAV -->
+<nav aria-label="Main navigation">
+  <a href="#home" class="nav-logo" aria-label="Harmony Acupuncture home">
+    <!-- Mini wax seal in nav -->
+    <svg class="nav-logo-seal" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle cx="14" cy="14" r="13" fill="#8b1a1a"/>
+      <circle cx="14" cy="14" r="10" fill="none" stroke="rgba(255,255,255,0.3)" stroke-width="0.8"/>
+      <text x="14" y="18.5" text-anchor="middle" font-family="Noto Serif SC, serif" font-size="11" fill="rgba(255,255,255,0.9)" font-weight="400">和</text>
+    </svg>
+    <span class="en-show">Harmony <span>Acupuncture</span></span>
+    <span class="zh-show" style="font-family:'Noto Serif SC',serif;color:var(--sage)">和谐针灸</span>
+  </a>
+  <ul class="nav-links" role="list">
+    <li><a href="#services"><span class="en-show">Services</span><span class="zh-show">服务</span></a></li>
+    <li><a href="#about"><span class="en-show">About</span><span class="zh-show">关于</span></a></li>
+    <li><a href="#booking"><span class="en-show">Book</span><span class="zh-show">预约</span></a></li>
+    <li><a href="#contact"><span class="en-show">Contact</span><span class="zh-show">联系</span></a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="lang-toggle" role="group" aria-label="Language">
+      <button class="lang-btn active" id="btn-en" onclick="setLang('en')" aria-pressed="true">EN</button>
+      <button class="lang-btn" id="btn-zh" onclick="setLang('zh')" aria-pressed="false">中文</button>
+    </div>
+    <a href="#booking" class="nav-cta"><span class="en-show">Book a visit</span><span class="zh-show">立即预约</span></a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home" aria-labelledby="hero-heading">
+
+  <!-- Large ink wash brush stroke background -->
+  <svg class="hero-brush-bg" viewBox="0 0 700 800" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+    <defs>
+      <filter id="brush-blur">
+        <feTurbulence type="fractalNoise" baseFrequency="0.04 0.06" numOctaves="4" seed="2" result="noise"/>
+        <feDisplacementMap in="SourceGraphic" in2="noise" scale="18" xChannelSelector="R" yChannelSelector="G"/>
+      </filter>
+      <filter id="ink-blur">
+        <feGaussianBlur stdDeviation="2.5"/>
+      </filter>
+    </defs>
+    <!-- Main vertical brush stroke -->
+    <path d="M380 30 C390 80 410 160 400 260 C390 360 370 420 375 520 C380 600 395 670 385 760" stroke="#3d6035" stroke-width="55" fill="none" stroke-linecap="round" filter="url(#brush-blur)" opacity="0.18"/>
+    <!-- Secondary thinner stroke -->
+    <path d="M440 60 C445 130 435 220 440 320 C445 400 455 480 448 580" stroke="#3d6035" stroke-width="20" fill="none" stroke-linecap="round" filter="url(#brush-blur)" opacity="0.1"/>
+    <!-- Horizontal accent -->
+    <path d="M260 340 C320 335 400 338 480 332 C540 327 590 330 640 328" stroke="#7a5a10" stroke-width="14" fill="none" stroke-linecap="round" filter="url(#brush-blur)" opacity="0.12"/>
+    <!-- Small ink dots -->
+    <circle cx="350" cy="280" r="8" fill="#3d6035" opacity="0.15" filter="url(#ink-blur)"/>
+    <circle cx="430" cy="420" r="5" fill="#3d6035" opacity="0.1" filter="url(#ink-blur)"/>
+    <circle cx="390" cy="550" r="10" fill="#7a5a10" opacity="0.1" filter="url(#ink-blur)"/>
+    <!-- Plum blossom suggestion -->
+    <circle cx="480" cy="180" r="18" fill="none" stroke="#8b1a1a" stroke-width="1.5" opacity="0.2"/>
+    <circle cx="508" cy="165" r="12" fill="none" stroke="#8b1a1a" stroke-width="1.2" opacity="0.15"/>
+    <circle cx="500" cy="200" r="10" fill="none" stroke="#8b1a1a" stroke-width="1.2" opacity="0.15"/>
+    <circle cx="460" cy="196" r="11" fill="none" stroke="#8b1a1a" stroke-width="1.2" opacity="0.15"/>
+    <circle cx="462" cy="163" r="10" fill="none" stroke="#8b1a1a" stroke-width="1.2" opacity="0.15"/>
+    <!-- Bamboo suggestion -->
+    <line x1="555" y1="100" x2="558" y2="650" stroke="#3d6035" stroke-width="8" opacity="0.08"/>
+    <line x1="558" y1="200" x2="600" y2="195" stroke="#3d6035" stroke-width="4" opacity="0.08"/>
+    <line x1="556" y1="310" x2="510" y2="305" stroke="#3d6035" stroke-width="4" opacity="0.08"/>
+    <line x1="557" y1="420" x2="598" y2="416" stroke="#3d6035" stroke-width="4" opacity="0.08"/>
+    <line x1="558" y1="530" x2="512" y2="526" stroke="#3d6035" stroke-width="4" opacity="0.08"/>
+  </svg>
+
+  <!-- Vertical calligraphy -->
+  <div class="hero-calligraphy" aria-hidden="true">
+    <svg viewBox="0 0 48 360" width="48" xmlns="http://www.w3.org/2000/svg">
+      <text x="24" y="52" text-anchor="middle" font-family="Noto Serif SC, serif" font-size="36" fill="rgba(61,96,53,0.22)" font-weight="300">和</text>
+      <text x="24" y="108" text-anchor="middle" font-family="Noto Serif SC, serif" font-size="36" fill="rgba(61,96,53,0.18)" font-weight="300">谐</text>
+      <text x="24" y="164" text-anchor="middle" font-family="Noto Serif SC, serif" font-size="36" fill="rgba(61,96,53,0.15)" font-weight="300">健</text>
+      <text x="24" y="220" text-anchor="middle" font-family="Noto Serif SC, serif" font-size="36" fill="rgba(61,96,53,0.12)" font-weight="300">康</text>
+      <text x="24" y="276" text-anchor="middle" font-family="Noto Serif SC, serif" font-size="36" fill="rgba(122,90,16,0.15)" font-weight="300">針</text>
+      <text x="24" y="332" text-anchor="middle" font-family="Noto Serif SC, serif" font-size="36" fill="rgba(122,90,16,0.12)" font-weight="300">灸</text>
+    </svg>
+  </div>
+
+  <div class="hero-content" id="main-content" tabindex="-1">
+    <p class="hero-eyebrow" aria-hidden="true"><span class="en-show">Traditional Chinese Medicine · Duluth, GA</span><span class="zh-show">传统中医 · 达卢斯</span></p>
+    <h1 id="hero-heading">
+      <span class="en-show">Restore your<br><em>balance.</em><br>Reclaim your life.</span>
+      <span class="zh-show" style="font-family:'Noto Serif SC',serif;font-size:clamp(36px,5vw,64px)">调和阴阳，<br><em>恢复健康。</em></span>
+    </h1>
+    <p class="hero-sub">
+      <span class="en-show">Ancient wisdom, practiced with precision. Acupuncture and herbal medicine rooted in thousands of years of healing tradition.</span>
+      <span class="zh-show">千年传承的中医智慧，以精准的技艺为您调理身心，重获健康与活力。</span>
+    </p>
+    <div class="hero-actions">
+      <a href="#booking" class="btn-primary"><span class="en-show">Book an appointment</span><span class="zh-show">立即预约</span></a>
+      <a href="#services" class="btn-outline">
+        <span class="en-show">Our services</span><span class="zh-show">诊疗项目</span>
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" aria-hidden="true"><path d="M2 7h10M7 3l4 4-4 4"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- BRUSH STROKE DIVIDER 1 -->
+<div class="brush-divider" aria-hidden="true">
+  <svg viewBox="0 0 1440 28" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <defs><filter id="bd1"><feTurbulence type="fractalNoise" baseFrequency="0.02 0.8" numOctaves="3" seed="5" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="6" xChannelSelector="R" yChannelSelector="G"/></filter></defs>
+    <path d="M0 18 C120 10 240 22 360 14 C480 6 600 20 720 13 C840 6 960 18 1080 12 C1200 6 1320 16 1440 11 L1440 28 L0 28 Z" fill="#f2ebe0" filter="url(#bd1)"/>
+    <path d="M0 22 C200 14 400 24 600 18 C800 12 1000 22 1200 16 C1320 12 1400 19 1440 17" stroke="#a8c4a0" stroke-width="1.5" fill="none" filter="url(#bd1)" opacity="0.6"/>
+  </svg>
+</div>
+
+<!-- INTRO STRIP -->
+<div class="intro-strip" role="region" aria-label="Practice highlights">
+  <div class="intro-stat"><div class="number" aria-label="15 plus years">15+</div><div class="stat-label"><span class="en-show">Years of practice</span><span class="zh-show">从业年限</span></div></div>
+  <div class="intro-divider" role="separator" aria-hidden="true"></div>
+  <div class="intro-stat"><div class="number" aria-label="over 2000">2000+</div><div class="stat-label"><span class="en-show">Patients treated</span><span class="zh-show">治疗患者</span></div></div>
+  <div class="intro-divider" role="separator" aria-hidden="true"></div>
+  <div class="intro-stat"><div class="number">NCCAOM</div><div class="stat-label"><span class="en-show">Board certified</span><span class="zh-show">全国认证</span></div></div>
+  <div class="intro-divider" role="separator" aria-hidden="true"></div>
+  <p class="intro-quote"><span class="en-show">"Health is a state of complete harmony of the body, mind and spirit."</span><span class="zh-show">「健康是身体、心灵与精神完全和谐的状态。」</span></p>
+</div>
+
+<!-- SERVICES -->
+<section class="services" id="services" aria-labelledby="services-heading">
+  <div class="services-inner">
+    <div class="services-header">
+      <div>
+        <p class="section-eyebrow" aria-hidden="true"><span class="en-show">What we offer</span><span class="zh-show">诊疗项目</span></p>
+        <h2 class="section-title" id="services-heading"><span class="en-show">Services &amp; treatments</span><span class="zh-show">服务与疗法</span></h2>
+      </div>
+      <a href="#booking" class="btn-primary"><span class="en-show">Book a session</span><span class="zh-show">立即预约</span></a>
+    </div>
+    <div class="services-grid" role="list">
+
+      <!-- ACUPUNCTURE -->
+      <article class="service-card" role="listitem">
+        <div class="service-icon-wrap">
+          <svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs><filter id="si1"><feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="3" seed="1" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="1.5"/></filter></defs>
+            <!-- Brush-stroke needle -->
+            <path d="M24 4 C24.5 8 25 14 24.5 22 C24 30 23.5 38 24 44" stroke="#3d6035" stroke-width="2.5" fill="none" stroke-linecap="round" filter="url(#si1)"/>
+            <path d="M18 18 C20 17 22 16.5 24.5 17 C27 17.5 29 18 31 18.5" stroke="#3d6035" stroke-width="1.5" fill="none" stroke-linecap="round" filter="url(#si1)" opacity="0.6"/>
+            <path d="M17 26 C19.5 25 22 24.5 24.5 25 C27 25.5 29.5 26 32 26.5" stroke="#3d6035" stroke-width="1.2" fill="none" stroke-linecap="round" filter="url(#si1)" opacity="0.5"/>
+            <circle cx="24" cy="6" r="2.5" fill="#7a5a10" opacity="0.8"/>
+          </svg>
+        </div>
+        <!-- Faint brush stroke behind card -->
+        <svg class="service-brush" width="100" height="80" viewBox="0 0 100 80" aria-hidden="true">
+          <path d="M10 70 C30 50 60 40 90 20" stroke="#3d6035" stroke-width="30" fill="none" stroke-linecap="round" opacity="0.06"/>
+        </svg>
+        <h3 class="service-name"><span class="en-show">Acupuncture</span><span class="zh-show">针灸治疗</span></h3>
+        <p class="service-zh" aria-hidden="true"><span class="en-show">针灸</span></p>
+        <p class="service-desc"><span class="en-show">Targeted needle therapy to relieve pain, reduce stress, and restore the natural flow of Qi through your body's meridian pathways.</span><span class="zh-show">通过精准的针刺疗法，缓解疼痛、减轻压力，恢复经络中气的自然流通。</span></p>
+      </article>
+
+      <!-- CUPPING -->
+      <article class="service-card" role="listitem">
+        <div class="service-icon-wrap">
+          <svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs><filter id="si2"><feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="3" seed="3" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="1.5"/></filter></defs>
+            <path d="M14 30 C12 20 14 10 24 8 C34 10 36 20 34 30" stroke="#3d6035" stroke-width="2.5" fill="none" stroke-linecap="round" filter="url(#si2)"/>
+            <path d="M12 32 L36 32" stroke="#3d6035" stroke-width="2" fill="none" stroke-linecap="round" filter="url(#si2)"/>
+            <ellipse cx="24" cy="36" rx="12" ry="5" stroke="#3d6035" stroke-width="2" fill="none" filter="url(#si2)"/>
+            <path d="M20 20 C22 18 26 18 28 20" stroke="#7a5a10" stroke-width="1.2" fill="none" stroke-linecap="round" opacity="0.6"/>
+          </svg>
+        </div>
+        <svg class="service-brush" width="100" height="80" viewBox="0 0 100 80" aria-hidden="true">
+          <path d="M5 60 C35 45 65 35 95 15" stroke="#7a5a10" stroke-width="28" fill="none" stroke-linecap="round" opacity="0.06"/>
+        </svg>
+        <h3 class="service-name"><span class="en-show">Cupping therapy</span><span class="zh-show">拔罐疗法</span></h3>
+        <p class="service-zh" aria-hidden="true"><span class="en-show">拔罐</span></p>
+        <p class="service-desc"><span class="en-show">Traditional suction cup therapy that increases circulation, releases muscle tension, and supports deep tissue healing.</span><span class="zh-show">传统拔罐疗法，促进血液循环，缓解肌肉紧张，支持深层组织愈合。</span></p>
+      </article>
+
+      <!-- HERBAL -->
+      <article class="service-card" role="listitem">
+        <div class="service-icon-wrap">
+          <svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs><filter id="si3"><feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="3" seed="7" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="1.5"/></filter></defs>
+            <!-- Bamboo-style herb -->
+            <path d="M24 44 C24 36 23.5 28 24 20 C24.5 12 24 6 24 4" stroke="#3d6035" stroke-width="2.5" fill="none" stroke-linecap="round" filter="url(#si3)"/>
+            <path d="M24 32 C30 28 36 24 40 18" stroke="#3d6035" stroke-width="2" fill="none" stroke-linecap="round" filter="url(#si3)"/>
+            <path d="M24 22 C18 18 12 14 8 8" stroke="#3d6035" stroke-width="2" fill="none" stroke-linecap="round" filter="url(#si3)"/>
+            <path d="M24 14 C28 10 32 8 36 6" stroke="#3d6035" stroke-width="1.5" fill="none" stroke-linecap="round" filter="url(#si3)" opacity="0.7"/>
+            <circle cx="40" cy="18" r="4" fill="#3d6035" opacity="0.3" filter="url(#si3)"/>
+            <circle cx="8" cy="8" r="3.5" fill="#3d6035" opacity="0.25" filter="url(#si3)"/>
+          </svg>
+        </div>
+        <svg class="service-brush" width="100" height="80" viewBox="0 0 100 80" aria-hidden="true">
+          <path d="M8 65 C28 50 55 38 92 18" stroke="#3d6035" stroke-width="25" fill="none" stroke-linecap="round" opacity="0.05"/>
+        </svg>
+        <h3 class="service-name"><span class="en-show">Herbal medicine</span><span class="zh-show">中草药</span></h3>
+        <p class="service-zh" aria-hidden="true"><span class="en-show">草药</span></p>
+        <p class="service-desc"><span class="en-show">Custom herbal formulas sourced from traditional Chinese pharmacopoeia, prescribed to complement your acupuncture treatment plan.</span><span class="zh-show">根据传统中医药方，为您量身定制草药配方，配合针灸疗程使用。</span></p>
+      </article>
+
+      <!-- MOXIBUSTION -->
+      <article class="service-card" role="listitem">
+        <div class="service-icon-wrap">
+          <svg width="48" height="48" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <defs><filter id="si4"><feTurbulence type="fractalNoise" baseFrequency="0.05" numOctaves="3" seed="9" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="1.5"/></filter></defs>
+            <!-- Moxa stick -->
+            <path d="M24 40 L24 16" stroke="#8b1a1a" stroke-width="4" fill="none" stroke-linecap="round" filter="url(#si4)" opacity="0.7"/>
+            <!-- Smoke/heat wisps -->
+            <path d="M24 14 C22 10 26 6 23 2" stroke="#7a5a10" stroke-width="1.8" fill="none" stroke-linecap="round" filter="url(#si4)" opacity="0.5"/>
+            <path d="M20 12 C18 8 22 5 19 1" stroke="#7a5a10" stroke-width="1.4" fill="none" stroke-linecap="round" filter="url(#si4)" opacity="0.35"/>
+            <path d="M28 13 C30 9 27 6 30 2" stroke="#7a5a10" stroke-width="1.4" fill="none" stroke-linecap="round" filter="url(#si4)" opacity="0.35"/>
+            <!-- Glow -->
+            <circle cx="24" cy="16" r="5" fill="#c4922a" opacity="0.2"/>
+            <circle cx="24" cy="16" r="3" fill="#c4922a" opacity="0.3"/>
+          </svg>
+        </div>
+        <svg class="service-brush" width="100" height="80" viewBox="0 0 100 80" aria-hidden="true">
+          <path d="M10 68 C32 52 58 40 90 20" stroke="#8b1a1a" stroke-width="22" fill="none" stroke-linecap="round" opacity="0.05"/>
+        </svg>
+        <h3 class="service-name"><span class="en-show">Moxibustion</span><span class="zh-show">艾灸</span></h3>
+        <p class="service-zh" aria-hidden="true"><span class="en-show">艾灸</span></p>
+        <p class="service-desc"><span class="en-show">Heat therapy using burning moxa to warm meridian points, stimulate circulation, and support the body's natural healing response.</span><span class="zh-show">使用艾条温热经络穴位，刺激血液循环，增强机体自然愈合能力。</span></p>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- BRUSH DIVIDER 2 -->
+<div class="brush-divider" aria-hidden="true">
+  <svg viewBox="0 0 1440 32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <defs><filter id="bd2"><feTurbulence type="fractalNoise" baseFrequency="0.018 0.7" numOctaves="3" seed="8" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="8" xChannelSelector="R" yChannelSelector="G"/></filter></defs>
+    <path d="M0 8 C180 18 360 4 540 14 C720 24 900 6 1080 16 C1260 26 1380 10 1440 16 L1440 32 L0 32 Z" fill="#f2ebe0" filter="url(#bd2)"/>
+    <path d="M0 12 C240 4 480 20 720 10 C960 0 1200 18 1440 8" stroke="#a8c4a0" stroke-width="1.2" fill="none" filter="url(#bd2)" opacity="0.5"/>
+  </svg>
+</div>
+
+<!-- ABOUT -->
+<section class="about" id="about" aria-labelledby="about-heading">
+  <div class="about-inner">
+    <div>
+      <p class="section-eyebrow" aria-hidden="true"><span class="en-show">About the practitioner</span><span class="zh-show">关于医师</span></p>
+      <h2 class="section-title" id="about-heading"><span class="en-show">Rooted in tradition,<br>guided by compassion</span><span class="zh-show">传承经典，<br>以仁心施治</span></h2>
+      <p class="section-body"><span class="en-show">With over 15 years of clinical experience, Dr. [Name] brings deep expertise in Traditional Chinese Medicine to every patient encounter. Trained in both classical theory and modern integrative approaches, her practice treats the whole person.</span><span class="zh-show">医师拥有超过15年临床经验，精通传统中医理论与现代综合疗法，注重整体调理。</span></p>
+      <ul class="cred-list" aria-label="Credentials">
+        <li class="cred-item"><span class="cred-dot" aria-hidden="true"></span><span class="en-show">Licensed Acupuncturist (L.Ac.), State of Georgia</span><span class="zh-show">佐治亚州执照针灸师 (L.Ac.)</span></li>
+        <li class="cred-item"><span class="cred-dot" aria-hidden="true"></span><span class="en-show">NCCAOM Board Certified — Acupuncture &amp; Oriental Medicine</span><span class="zh-show">NCCAOM全国认证针灸及东方医学</span></li>
+        <li class="cred-item"><span class="cred-dot" aria-hidden="true"></span><span class="en-show">Certified Herbalist — Chinese Herbal Medicine</span><span class="zh-show">中草药认证医师</span></li>
+        <li class="cred-item"><span class="cred-dot" aria-hidden="true"></span><span class="en-show">Advanced training in cupping, moxibustion &amp; gua sha</span><span class="zh-show">拔罐、艾灸及刮痧高级培训</span></li>
+        <li class="cred-item"><span class="cred-dot" aria-hidden="true"></span><span class="en-show">Member, American Society of Acupuncturists</span><span class="zh-show">美国针灸师学会会员</span></li>
+      </ul>
+    </div>
+    <div class="about-visual" aria-hidden="true">
+      <div class="about-img-frame">
+        <!-- Ink wash mountain at bottom of photo frame -->
+        <svg class="about-frame-brush" viewBox="0 0 360 120" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs><filter id="mtn"><feTurbulence type="fractalNoise" baseFrequency="0.03 0.1" numOctaves="4" seed="12" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="12"/></filter></defs>
+          <path d="M0 120 C40 80 80 50 120 70 C140 80 160 40 180 55 C200 70 220 30 260 50 C300 70 330 85 360 75 L360 120 Z" fill="rgba(61,96,53,0.12)" filter="url(#mtn)"/>
+          <path d="M0 120 C60 90 100 70 150 85 C180 95 210 60 240 75 C270 90 310 100 360 90 L360 120 Z" fill="rgba(61,96,53,0.08)" filter="url(#mtn)"/>
+        </svg>
+      </div>
+      <!-- WAX SEAL -->
+      <div class="wax-seal" aria-hidden="true">
+        <svg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <filter id="seal-shadow"><feDropShadow dx="2" dy="3" stdDeviation="4" flood-color="rgba(139,26,26,0.35)"/></filter>
+          </defs>
+          <!-- Seal body with irregular edge for wax feel -->
+          <path d="M40 4 C44 3 50 5 54 8 C58 11 61 10 64 13 C68 16 70 20 72 24 C74 28 76 32 76 37 C76 42 75 47 73 51 C71 55 68 59 64 62 C60 65 56 67 52 69 C48 71 44 72 40 72 C36 72 32 71 28 69 C24 67 20 65 16 62 C12 59 9 55 7 51 C5 47 4 42 4 37 C4 32 6 27 8 23 C10 19 13 15 17 12 C21 9 25 7 30 5 C34 3 37 4 40 4 Z" fill="#8b1a1a" filter="url(#seal-shadow)"/>
+          <!-- Inner ring -->
+          <circle cx="40" cy="38" r="26" fill="none" stroke="rgba(255,200,180,0.25)" stroke-width="1.2"/>
+          <!-- Main character -->
+          <text x="40" y="47" text-anchor="middle" font-family="Noto Serif SC, serif" font-size="28" fill="rgba(255,220,200,0.9)" font-weight="300">和</text>
+          <!-- Small decorative marks -->
+          <circle cx="40" cy="15" r="2" fill="rgba(255,200,180,0.3)"/>
+          <circle cx="40" cy="61" r="2" fill="rgba(255,200,180,0.3)"/>
+          <circle cx="14" cy="38" r="2" fill="rgba(255,200,180,0.3)"/>
+          <circle cx="66" cy="38" r="2" fill="rgba(255,200,180,0.3)"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="process" aria-labelledby="process-heading">
+  <div class="process-inner">
+    <p class="section-eyebrow" aria-hidden="true"><span class="en-show">How it works</span><span class="zh-show">就诊流程</span></p>
+    <h2 class="section-title" id="process-heading"><span class="en-show">Your first visit</span><span class="zh-show">首次就诊</span></h2>
+
+    <!-- Brush stroke underline under heading -->
+    <svg viewBox="0 0 300 18" width="260" style="margin-bottom:2.5rem;display:block;" aria-hidden="true">
+      <defs><filter id="pbu"><feTurbulence type="fractalNoise" baseFrequency="0.02 0.6" numOctaves="3" seed="3" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="5" xChannelSelector="R" yChannelSelector="G"/></filter></defs>
+      <path d="M10 10 C60 6 120 12 180 8 C220 5 260 10 290 7" stroke="#3d6035" stroke-width="7" fill="none" stroke-linecap="round" filter="url(#pbu)" opacity="0.5"/>
+      <path d="M10 13 C70 10 140 15 200 11 C240 8 275 13 290 10" stroke="#7a5a10" stroke-width="3" fill="none" stroke-linecap="round" filter="url(#pbu)" opacity="0.3"/>
+    </svg>
+
+    <ol class="process-brush-row" aria-label="Steps for your first visit" style="list-style:none;">
+      <li class="process-step">
+        <div class="step-kanji" aria-hidden="true">一</div>
+        <h3 class="step-title"><span class="en-show">Book online or call</span><span class="zh-show">预约就诊</span></h3>
+        <p class="step-body"><span class="en-show">Choose your appointment type and time online, or simply call us to schedule directly.</span><span class="zh-show">在线选择预约类型及时间，或直接致电预约。</span></p>
+      </li>
+      <li class="process-step">
+        <div class="step-kanji" aria-hidden="true">二</div>
+        <h3 class="step-title"><span class="en-show">Health consultation</span><span class="zh-show">健康问诊</span></h3>
+        <p class="step-body"><span class="en-show">We discuss your health history and perform tongue and pulse diagnosis to understand your body's patterns.</span><span class="zh-show">详细了解您的健康状况，进行舌诊与脉诊。</span></p>
+      </li>
+      <li class="process-step">
+        <div class="step-kanji" aria-hidden="true">三</div>
+        <h3 class="step-title"><span class="en-show">Your treatment</span><span class="zh-show">接受治疗</span></h3>
+        <p class="step-body"><span class="en-show">Relax while your personalized treatment is performed. Needles are hair-thin and most patients feel comfortable.</span><span class="zh-show">在轻松的环境中接受个性化治疗，大多数患者感觉舒适。</span></p>
+      </li>
+      <li class="process-step">
+        <div class="step-kanji" aria-hidden="true">四</div>
+        <h3 class="step-title"><span class="en-show">Your care plan</span><span class="zh-show">调理方案</span></h3>
+        <p class="step-body"><span class="en-show">Leave with a clear plan — recommended follow-ups, herbal suggestions, and lifestyle guidance.</span><span class="zh-show">获得详细调理方案，包括复诊建议、草药配方及生活指导。</span></p>
+      </li>
+    </ol>
+
+    <!-- Brush stroke underline below steps -->
+    <svg viewBox="0 0 1100 20" style="display:block;width:100%;margin-top:2.5rem;" aria-hidden="true">
+      <defs><filter id="pu2"><feTurbulence type="fractalNoise" baseFrequency="0.01 0.5" numOctaves="3" seed="6" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="6" xChannelSelector="R" yChannelSelector="G"/></filter></defs>
+      <path d="M20 10 C200 5 400 14 600 8 C800 2 1000 13 1080 8" stroke="#a8c4a0" stroke-width="8" fill="none" stroke-linecap="round" filter="url(#pu2)" opacity="0.55"/>
+      <path d="M20 14 C220 10 440 17 660 12 C880 7 1020 15 1080 12" stroke="#c4922a" stroke-width="3" fill="none" stroke-linecap="round" filter="url(#pu2)" opacity="0.25"/>
+    </svg>
+  </div>
+</section>
+
+<!-- BOOKING -->
+<section class="booking" id="booking" aria-labelledby="booking-heading">
+  <div class="booking-inner">
+    <div class="booking-header">
+      <p class="section-eyebrow" aria-hidden="true"><span class="en-show">Schedule a visit</span><span class="zh-show">预约就诊</span></p>
+      <h2 class="section-title" id="booking-heading"><span class="en-show">Book an appointment</span><span class="zh-show">立即预约</span></h2>
+      <p class="section-body"><span class="en-show">Choose how you'd like to book — online or by phone. We're happy to accommodate either way.</span><span class="zh-show">在线预约或致电预约，我们将竭诚为您服务。</span></p>
+    </div>
+
+    <div class="booking-options">
+      <div class="booking-option-card">
+        <div class="booking-option-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        </div>
+        <h3 class="booking-option-title"><span class="en-show">Book online</span><span class="zh-show">在线预约</span></h3>
+        <p class="booking-option-desc"><span class="en-show">Select your appointment type, pick an available time, and fill in your details.</span><span class="zh-show">选择预约类型和时间，填写您的信息。</span></p>
+        <button class="booking-option-cta" onclick="openBookingForm()" aria-expanded="false" aria-controls="booking-form-section"><span class="en-show">Choose a time</span><span class="zh-show">选择时间</span></button>
+      </div>
+      <div class="booking-option-card">
+        <div class="booking-option-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.99 1.18 2 2 0 013 .01h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        </div>
+        <h3 class="booking-option-title"><span class="en-show">Call to book</span><span class="zh-show">电话预约</span></h3>
+        <p class="booking-option-desc"><span class="en-show">Prefer to speak with us? Call during office hours and we'll find the right time for you.</span><span class="zh-show">更喜欢直接通话？请在办公时间致电。</span></p>
+        <a href="tel:+17703108070" class="booking-option-cta outline">(770) 310-8070</a>
+      </div>
+    </div>
+
+    <div class="booking-form-wrap" id="booking-form-section" aria-label="Online booking form">
+      <div class="booking-form-header">
+        <h3><span class="en-show">Online booking</span><span class="zh-show">在线预约表格</span></h3>
+        <button class="close-form" onclick="closeBookingForm()" aria-label="Close booking form">✕</button>
+      </div>
+
+      <!-- Step indicator: big numbers, always visible, shows progress -->
+      <div class="step-indicator" aria-hidden="true">
+        <div class="step-dot active" id="step-dot-1"><span>1</span></div>
+        <div class="step-line"></div>
+        <div class="step-dot" id="step-dot-2"><span>2</span></div>
+        <div class="step-line"></div>
+        <div class="step-dot" id="step-dot-3"><span>3</span></div>
+      </div>
+
+      <div class="booking-body-inner">
+        <!-- STEP 1: Appointment type -->
+        <div class="step-panel active" id="step-panel-1">
+          <div class="step-title"><span class="en-show">1. What kind of visit?</span><span class="zh-show">1. 选择预约类型</span></div>
+          <div class="apt-type-list" role="group">
+            <button class="apt-type-btn" data-service="initial_consultation" aria-pressed="true" onclick="selectAptType(this)">
+              <div class="apt-type-dot" aria-hidden="true"></div>
+              <div><div class="apt-type-name"><span class="en-show">Initial Consultation</span><span class="zh-show">初次问诊</span></div><div class="apt-type-desc"><span class="en-show">First visit</span><span class="zh-show">首次就诊</span></div></div>
+            </button>
+            <button class="apt-type-btn" data-service="follow_up" aria-pressed="false" onclick="selectAptType(this)">
+              <div class="apt-type-dot" aria-hidden="true"></div>
+              <div><div class="apt-type-name"><span class="en-show">Follow-up Visit</span><span class="zh-show">复诊</span></div><div class="apt-type-desc"><span class="en-show">Returning patients</span><span class="zh-show">复诊患者</span></div></div>
+            </button>
+            <button class="apt-type-btn" data-service="special" aria-pressed="false" onclick="selectAptType(this)">
+              <div class="apt-type-dot" aria-hidden="true"></div>
+              <div><div class="apt-type-name"><span class="en-show">Special Appointment</span><span class="zh-show">特殊预约</span></div><div class="apt-type-desc"><span class="en-show">Cupping, moxibustion, gua sha</span><span class="zh-show">拔罐、艾灸、刮痧</span></div></div>
+            </button>
+          </div>
+          <button type="button" class="big-next-btn" onclick="goToStep(2)"><span class="en-show">Next</span><span class="zh-show">下一步</span> →</button>
+        </div>
+
+        <!-- STEP 2: Pick a date AND time together — clicking any date shows
+             that day's times right below it, without leaving the screen.
+             Lets someone compare "Tue 8am" vs "Thu 3pm" without navigating
+             back and forth. -->
+        <div class="step-panel" id="step-panel-2">
+          <div class="step-title"><span class="en-show">2. Pick a day &amp; time</span><span class="zh-show">2. 选择日期和时间</span></div>
+          <div class="date-grid" id="date-grid" role="group"></div>
+          <div id="slots-section" style="display:none;margin-top:1.5rem;">
+            <div class="slots-heading" id="slots-heading"></div>
+            <div class="slots-grid" role="group" id="slots-grid"></div>
+          </div>
+          <button type="button" class="big-back-btn" onclick="goToStep(1)">← <span class="en-show">Back</span><span class="zh-show">上一步</span></button>
+        </div>
+
+        <!-- STEP 3: Contact info + confirm -->
+        <div class="step-panel" id="step-panel-3">
+          <div class="step-title"><span class="en-show">3. Your information</span><span class="zh-show">3. 您的信息</span></div>
+          <div class="booking-summary" id="booking-summary" aria-live="polite"></div>
+          <div class="form-group"><label for="first-name"><span class="en-show">First name</span><span class="zh-show">名</span></label><input type="text" id="first-name" autocomplete="given-name" required /></div>
+          <div class="form-group"><label for="last-name"><span class="en-show">Last name</span><span class="zh-show">姓</span></label><input type="text" id="last-name" autocomplete="family-name" required /></div>
+          <div class="form-group"><label for="phone"><span class="en-show">Phone number</span><span class="zh-show">电话号码</span></label><input type="tel" id="phone" autocomplete="tel" required /></div>
+          <div class="form-group" style="display:flex;align-items:flex-start;gap:10px;background:var(--sage-light);padding:12px 14px;border-radius:8px;">
+            <input type="checkbox" id="calendar-optin" style="margin-top:5px;width:20px;height:20px;flex-shrink:0;" onchange="toggleEmailRequired()" />
+            <label for="calendar-optin" style="font-size:14px;font-weight:500;color:var(--ink);"><span class="en-show">Email me a calendar invite and reminder for this appointment</span><span class="zh-show">给我发送日历邀请和提醒邮件</span></label>
+          </div>
+          <div class="form-group"><label for="email"><span class="en-show">Email address</span><span class="zh-show">电子邮件</span> <span id="email-optional-note" style="font-weight:400;color:var(--text-muted);">(<span class="en-show">optional</span><span class="zh-show">选填</span>)</span></label><input type="email" id="email" autocomplete="email" /></div>
+          <div class="form-group"><label for="concern"><span class="en-show">Main health concern (optional)</span><span class="zh-show">主要健康问题（选填）</span></label><textarea id="concern" rows="3"></textarea></div>
+          <div class="form-group" style="display:flex;align-items:flex-start;gap:10px;">
+            <input type="checkbox" id="consent" style="margin-top:5px;width:20px;height:20px;flex-shrink:0;" required />
+            <label for="consent" style="font-size:14px;font-weight:400;color:var(--text-secondary);"><span class="en-show">I agree to be contacted about this appointment.</span><span class="zh-show">我同意接收与本次预约相关的联系。</span></label>
+          </div>
+          <button type="button" class="submit-btn" id="submit-btn" onclick="submitBooking()"><span class="en-show">Confirm appointment</span><span class="zh-show">确认预约</span></button>
+          <p class="form-note" id="form-note" role="status" aria-live="polite"></p>
+          <button type="button" class="big-back-btn" onclick="goToStep(2)">← <span class="en-show">Back</span><span class="zh-show">上一步</span></button>
+          <p style="font-size:14px;color:var(--text-muted);margin-top:1.25rem;text-align:center;"><span class="en-show">Prefer to talk to someone?</span><span class="zh-show">更喜欢通话？</span> <a href="tel:+17703108070" style="color:var(--sage-dark);font-weight:600;">(770) 310-8070</a></p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="call-banner" role="complementary" aria-label="Phone booking option">
+      <div>
+        <h3><span class="en-show">Prefer to call?</span><span class="zh-show">更喜欢电话预约？</span></h3>
+        <p><span class="en-show">Mon – Sat · 9:00 am – 6:00 pm</span><span class="zh-show">周一至周六 · 上午9时至下午6时</span></p>
+      </div>
+      <a href="tel:+17703108070" class="call-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.99 1.18 2 2 0 013 .01h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
+        (770) 310-8070
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- BRUSH DIVIDER 3 -->
+<div class="brush-divider" aria-hidden="true">
+  <svg viewBox="0 0 1440 24" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <defs><filter id="bd3"><feTurbulence type="fractalNoise" baseFrequency="0.02 0.9" numOctaves="3" seed="11" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="7" xChannelSelector="R" yChannelSelector="G"/></filter></defs>
+    <path d="M0 12 C200 4 400 18 600 8 C800 -2 1000 16 1200 8 C1320 3 1400 12 1440 9 L1440 24 L0 24 Z" fill="#faf6ef" filter="url(#bd3)"/>
+    <path d="M0 16 C300 8 600 20 900 12 C1100 6 1300 16 1440 11" stroke="#c4b89e" stroke-width="1" fill="none" filter="url(#bd3)" opacity="0.4"/>
+  </svg>
+</div>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" aria-labelledby="testimonials-heading">
+  <div class="test-inner">
+    <div class="test-header">
+      <p class="section-eyebrow" aria-hidden="true"><span class="en-show">Patient stories</span><span class="zh-show">患者心声</span></p>
+      <h2 class="section-title" id="testimonials-heading"><span class="en-show">What patients say</span><span class="zh-show">患者评价</span></h2>
+    </div>
+    <div class="test-grid">
+      <article class="test-card">
+        <div class="test-stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <p class="test-quote"><span class="en-show">After years of chronic back pain, I finally found real relief. Four sessions and the difference was remarkable.</span><span class="zh-show">多年的慢性背痛，仅四次疗程便有了显著改善。</span></p>
+        <p class="test-author">— Michelle T.</p>
+      </article>
+      <article class="test-card">
+        <div class="test-stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <p class="test-quote"><span class="en-show">The herbal formulas combined with acupuncture completely changed my digestion and energy. I feel like myself again.</span><span class="zh-show">草药配方加上针灸，彻底改善了我的消化和精力。</span></p>
+        <p class="test-author">— David K.</p>
+      </article>
+      <article class="test-card">
+        <div class="test-stars" aria-label="5 out of 5 stars">★★★★★</div>
+        <p class="test-quote"><span class="en-show">I was skeptical at first, but the results speak for themselves. My anxiety and sleep improved beyond what I thought possible.</span><span class="zh-show">起初持怀疑态度，但效果证明了一切。焦虑和睡眠都有了意想不到的改善。</span></p>
+        <p class="test-author">— Priya M.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contact">
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="logo">
+          <svg width="24" height="24" viewBox="0 0 28 28" aria-hidden="true"><circle cx="14" cy="14" r="13" fill="#8b1a1a" opacity="0.8"/><text x="14" y="18.5" text-anchor="middle" font-family="Noto Serif SC, serif" font-size="11" fill="rgba(255,255,255,0.9)">和</text></svg>
+          <span class="en-show">Harmony Acupuncture &amp; Wellness</span>
+          <span class="zh-show">和谐针灸健康中心</span>
+        </div>
+        <p><span class="en-show">Traditional Chinese Medicine in Duluth, Georgia.</span><span class="zh-show">坐落于佐治亚州达卢斯的传统中医诊所。</span></p>
+      </div>
+      <div class="footer-col">
+        <h2><span class="en-show">Services</span><span class="zh-show">服务</span></h2>
+        <ul>
+          <li><a href="#services"><span class="en-show">Acupuncture</span><span class="zh-show">针灸</span></a></li>
+          <li><a href="#services"><span class="en-show">Cupping therapy</span><span class="zh-show">拔罐</span></a></li>
+          <li><a href="#services"><span class="en-show">Herbal medicine</span><span class="zh-show">中草药</span></a></li>
+          <li><a href="#services"><span class="en-show">Moxibustion</span><span class="zh-show">艾灸</span></a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h2><span class="en-show">Hours</span><span class="zh-show">营业时间</span></h2>
+        <ul>
+          <li><span class="en-show">Mon – Fri, 9am – 6pm</span><span class="zh-show">周一至周五 9–18时</span></li>
+          <li><span class="en-show">Saturday, 9am – 1pm</span><span class="zh-show">周六 9–13时</span></li>
+          <li><span class="en-show">Sunday closed</span><span class="zh-show">周日休息</span></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h2><span class="en-show">Contact</span><span class="zh-show">联系</span></h2>
+        <ul>
+          <li><a href="tel:+17703108070">(770) 310-8070</a></li>
+          <li><a href="mailto:info@hatcm.com">info@hatcm.com</a></li>
+          <li><span class="en-show">2760 Peachtree Industrial Blvd<br>Suite E, Duluth, GA 30097</span><span class="zh-show">2760 Peachtree Industrial Blvd<br>E室, 达卢斯, GA 30097</span></li>
+          <li><a href="#booking"><span class="en-show">Book online</span><span class="zh-show">在线预约</span></a></li>
+        </ul>
+      </div>
+    </div>
+    <!-- Ink brush stroke above copyright -->
+    <svg viewBox="0 0 1100 16" style="display:block;width:100%;margin-bottom:1.5rem;" aria-hidden="true">
+      <defs><filter id="fu"><feTurbulence type="fractalNoise" baseFrequency="0.015 0.6" numOctaves="3" seed="4" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="5" xChannelSelector="R" yChannelSelector="G"/></filter></defs>
+      <path d="M10 8 C200 3 440 12 660 6 C880 0 1020 9 1090 6" stroke="rgba(255,255,255,0.12)" stroke-width="8" fill="none" stroke-linecap="round" filter="url(#fu)"/>
+    </svg>
+    <div class="footer-bottom">
+      <span>© 2026 Harmony Acupuncture &amp; Wellness · hatcm.com</span>
+      <span>
+        <a href="#"><span class="en-show">Privacy policy</span><span class="zh-show">隐私政策</span></a>
+        &nbsp;·&nbsp;
+        <a href="harmony-calendar-helper.html"><span class="en-show">Staff</span><span class="zh-show">员工</span></a>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<script>
+// TODO: replace with your real Render URL once deployed (see DEPLOYMENT.md)
+const API_BASE = 'https://harmony-backend.onrender.com';
+
+let selectedService = 'initial_consultation';
+let selectedServiceLabel = { en: 'Initial Consultation', zh: '初次问诊' };
+let selectedDateStr = null;
+let selectedDateLabel = null;
+let selectedSlotISO = null;
+let currentStep = 1;
+
+function isZh() { return document.body.classList.contains('zh'); }
+
+// Closed on Sundays (day 0) — matches the business hours in the footer.
+// Only used to decide which day-cards to show; the backend is still the
+// real source of truth for exact open times.
+function isClosedDay(date) { return date.getDay() === 0; }
+
+function buildDateCards() {
+  const grid = document.getElementById('date-grid');
+  grid.innerHTML = '';
+  const today = new Date();
+  let shown = 0;
+  let offset = 0;
+
+  while (shown < 9 && offset < 30) {
+    const d = new Date(today);
+    d.setDate(today.getDate() + offset);
+    offset++;
+    if (isClosedDay(d)) continue;
+
+    const dateStr = d.toISOString().split('T')[0];
+    const dayLabel = d.toLocaleDateString(isZh() ? 'zh-CN' : 'en-US', { weekday: 'short' });
+    const numLabel = d.toLocaleDateString(isZh() ? 'zh-CN' : 'en-US', { month: 'short', day: 'numeric' });
+
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'date-btn';
+    btn.dataset.dateStr = dateStr;
+    btn.setAttribute('aria-pressed', dateStr === selectedDateStr ? 'true' : 'false');
+    btn.innerHTML = `<span class="date-day">${dayLabel}</span><span class="date-num">${numLabel}</span>`;
+    btn.onclick = () => {
+      document.querySelectorAll('.date-btn').forEach((b) => b.setAttribute('aria-pressed', 'false'));
+      btn.setAttribute('aria-pressed', 'true');
+      selectedDateStr = dateStr;
+      selectedDateLabel = `${dayLabel}, ${numLabel}`;
+      document.getElementById('slots-section').style.display = 'block';
+      document.getElementById('slots-heading').textContent = isZh() ? `${selectedDateLabel} 可用时段` : `Times for ${selectedDateLabel}`;
+      loadSlots(dateStr);
+    };
+    grid.appendChild(btn);
+    shown++;
+  }
+}
+
+async function loadSlots(date) {
+  const grid = document.getElementById('slots-grid');
+  selectedSlotISO = null;
+  grid.innerHTML = `<p style="font-size:15px;color:var(--text-muted);">${isZh() ? '正在加载可用时段…' : 'Loading available times…'}</p>`;
+
+  try {
+    const res = await fetch(`${API_BASE}/api/bookings/slots?date=${date}`);
+    if (!res.ok) throw new Error('Failed to load slots');
+    const data = await res.json();
+
+    if (!data.openSlots || data.openSlots.length === 0) {
+      grid.innerHTML = `<p style="font-size:15px;color:var(--text-muted);">${isZh() ? '该日期暂无可用时段，请选择其他日期或致电预约。' : 'No open times that day — please try another date or call to book.'}</p>`;
+      return;
+    }
+
+    grid.innerHTML = '';
+    data.openSlots.forEach((iso) => {
+      const time = new Date(iso);
+      const label = time.toLocaleTimeString(isZh() ? 'zh-CN' : 'en-US', { hour: 'numeric', minute: '2-digit' });
+      const btn = document.createElement('button');
+      btn.className = 'slot-btn';
+      btn.type = 'button';
+      btn.textContent = label;
+      btn.setAttribute('aria-pressed', 'false');
+      btn.onclick = () => {
+        document.querySelectorAll('#slots-grid .slot-btn').forEach((b) => b.setAttribute('aria-pressed', 'false'));
+        btn.setAttribute('aria-pressed', 'true');
+        selectedSlotISO = iso;
+        updateSummary();
+        goToStep(3);
+      };
+      grid.appendChild(btn);
+    });
+  } catch (err) {
+    grid.innerHTML = `<p style="font-size:15px;color:var(--red);">${isZh() ? '加载时段时出错，请稍后重试或致电预约。' : 'Something went wrong loading times — please try again or call to book.'}</p>`;
+  }
+}
+
+function updateSummary() {
+  const el = document.getElementById('booking-summary');
+  if (!selectedSlotISO) { el.textContent = ''; return; }
+  const time = new Date(selectedSlotISO).toLocaleTimeString(isZh() ? 'zh-CN' : 'en-US', { hour: 'numeric', minute: '2-digit' });
+  const serviceName = isZh() ? selectedServiceLabel.zh : selectedServiceLabel.en;
+  el.textContent = isZh()
+    ? `${serviceName} · ${selectedDateLabel} · ${time}`
+    : `${serviceName} · ${selectedDateLabel} · ${time}`;
+}
+
+function goToStep(step) {
+  currentStep = step;
+  for (let i = 1; i <= 3; i++) {
+    document.getElementById(`step-panel-${i}`).classList.toggle('active', i === step);
+    const dot = document.getElementById(`step-dot-${i}`);
+    dot.classList.toggle('active', i === step);
+    dot.classList.toggle('done', i < step);
+  }
+  document.getElementById('booking-form-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function toggleEmailRequired() {
+  const optIn = document.getElementById('calendar-optin').checked;
+  const emailInput = document.getElementById('email');
+  const note = document.getElementById('email-optional-note');
+  emailInput.required = optIn;
+  note.style.display = optIn ? 'none' : 'inline';
+}
+
+async function submitBooking() {
+  const note = document.getElementById('form-note');
+  const submitBtn = document.getElementById('submit-btn');
+
+  const firstName = document.getElementById('first-name').value.trim();
+  const lastName = document.getElementById('last-name').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const concern = document.getElementById('concern').value.trim();
+  const consent = document.getElementById('consent').checked;
+  const calendarOptIn = document.getElementById('calendar-optin').checked;
+
+  if (!firstName || !lastName || !phone) {
+    note.textContent = isZh() ? '请填写所有必填信息。' : 'Please fill in all required fields.';
+    note.style.color = 'var(--red)';
+    return;
+  }
+  if (calendarOptIn && !email) {
+    note.textContent = isZh() ? '如需日历提醒，请填写电子邮件。' : 'Please provide an email to receive calendar reminders.';
+    note.style.color = 'var(--red)';
+    return;
+  }
+  if (!selectedSlotISO) {
+    note.textContent = isZh() ? '请选择日期和时段。' : 'Please choose a date and time.';
+    note.style.color = 'var(--red)';
+    return;
+  }
+  if (!consent) {
+    note.textContent = isZh() ? '请勾选同意选项以继续。' : 'Please check the consent box to continue.';
+    note.style.color = 'var(--red)';
+    return;
+  }
+
+  submitBtn.disabled = true;
+  note.style.color = 'var(--text-muted)';
+  note.textContent = isZh() ? '正在提交…' : 'Submitting…';
+
+  try {
+    const res = await fetch(`${API_BASE}/api/bookings`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        full_name: `${firstName} ${lastName}`,
+        email: email || undefined,
+        phone,
+        service_type: selectedService,
+        starts_at: selectedSlotISO,
+        chief_complaint: concern || undefined,
+        calendar_opt_in: calendarOptIn,
+        consent_given: true,
+      }),
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      note.style.color = 'var(--red)';
+      note.textContent = data.error || (isZh() ? '预约失败，请重试。' : 'Booking failed — please try again.');
+      submitBtn.disabled = false;
+      return;
+    }
+
+    note.style.color = 'var(--sage-dark)';
+    note.textContent = isZh() ? '预约成功！我们期待您的到来。' : 'Appointment confirmed! We look forward to seeing you.';
+    submitBtn.disabled = false;
+  } catch (err) {
+    note.style.color = 'var(--red)';
+    note.textContent = isZh() ? '网络错误，请稍后重试或致电预约。' : 'Network error — please try again or call to book.';
+    submitBtn.disabled = false;
+  }
+}
+
+function setLang(lang) {
+  const body = document.body;
+  const btnEn = document.getElementById('btn-en');
+  const btnZh = document.getElementById('btn-zh');
+  if (lang === 'zh') {
+    body.classList.add('zh'); document.documentElement.lang = 'zh';
+    btnEn.classList.remove('active'); btnEn.setAttribute('aria-pressed','false');
+    btnZh.classList.add('active'); btnZh.setAttribute('aria-pressed','true');
+  } else {
+    body.classList.remove('zh'); document.documentElement.lang = 'en';
+    btnZh.classList.remove('active'); btnZh.setAttribute('aria-pressed','false');
+    btnEn.classList.add('active'); btnEn.setAttribute('aria-pressed','true');
+  }
+  buildDateCards(); // rebuild so day/month labels show in the right language
+  if (selectedDateStr) {
+    document.getElementById('slots-heading').textContent = isZh() ? `${selectedDateLabel} 可用时段` : `Times for ${selectedDateLabel}`;
+    loadSlots(selectedDateStr);
+  }
+  updateSummary();
+}
+function openBookingForm() {
+  const f = document.getElementById('booking-form-section');
+  f.classList.add('open');
+  goToStep(1);
+  buildDateCards();
+  f.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  document.querySelector('.close-form').focus();
+  document.querySelector('[aria-controls="booking-form-section"]').setAttribute('aria-expanded','true');
+}
+function closeBookingForm() {
+  document.getElementById('booking-form-section').classList.remove('open');
+  document.querySelector('[aria-controls="booking-form-section"]').setAttribute('aria-expanded','false');
+  document.querySelector('[aria-controls="booking-form-section"]').focus();
+}
+function selectAptType(el) {
+  document.querySelectorAll('.apt-type-btn').forEach(b => b.setAttribute('aria-pressed','false'));
+  el.setAttribute('aria-pressed','true');
+  selectedService = el.dataset.service;
+  selectedServiceLabel = {
+    en: el.querySelector('.apt-type-name .en-show').textContent,
+    zh: el.querySelector('.apt-type-name .zh-show').textContent,
+  };
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: harmony-backend
+    runtime: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_VERSION
+        value: 18
+      # Set the rest (GOOGLE_*, ALLOWED_ORIGINS) manually in the Render
+      # dashboard — don't put real secrets in this file.
