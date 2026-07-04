@@ -4,23 +4,40 @@ const { google } = require('googleapis');
 // Her calendar IS the database. No separate DB to manage, nothing for her
 // to log into except Google Calendar, which she already uses.
 //
-// SETUP (done once, by you — not her):
-// 1. Google Cloud Console > new project > enable "Google Calendar API"
-// 2. Create OAuth 2.0 credentials (Web application)
-// 3. Do the one-time consent flow AS HER — she just clicks "Allow" once
-//    on a Google sign-in screen, nothing technical. Save the resulting
-//    refresh token as GOOGLE_REFRESH_TOKEN in Render.
+// AUTH: uses a Google Cloud Service Account, NOT user OAuth. This matters —
+// service accounts are a completely different auth mechanism ("server to
+// server," not user-consent OAuth), so none of the Testing/Production
+// publish status, 7-day refresh token expiry, or test-user-cap rules that
+// apply to OAuth consent screens apply here at all.
+//
+// SETUP (done once, by you, inside her Google Cloud project):
+// 1. Google Cloud Console > her project > enable "Google Calendar API"
+// 2. IAM & Admin > Service Accounts > Create Service Account
+// 3. That service account > Keys > Add Key > Create new key > JSON
+//    → download it, paste its full contents into GOOGLE_SERVICE_ACCOUNT_KEY
+//    as a single-line env var on Render
+// 4. Note the service account's email (looks like
+//    something@her-project.iam.gserviceaccount.com)
+//
+// HER ONLY STEP, EVER: she opens Google Calendar > Settings > her calendar
+// > "Share with specific people" > adds that service account email >
+// gives it "Make changes to events" permission. Same action as sharing
+// her calendar with an assistant — nothing about Google Cloud involved.
 // ============================================================
 
-const oauth2Client = new google.auth.OAuth2(
-  process.env.GOOGLE_CLIENT_ID,
-  process.env.GOOGLE_CLIENT_SECRET,
-  process.env.GOOGLE_REDIRECT_URI
-);
-oauth2Client.setCredentials({ refresh_token: process.env.GOOGLE_REFRESH_TOKEN });
+const serviceAccountAuth = new google.auth.GoogleAuth({
+  credentials: JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_KEY),
+  scopes: ['https://www.googleapis.com/auth/calendar'],
+});
 
-const calendar = google.calendar({ version: 'v3', auth: oauth2Client });
-const CALENDAR_ID = process.env.GOOGLE_CALENDAR_ID || 'primary';
+const calendar = google.calendar({ version: 'v3', auth: serviceAccountAuth });
+
+// This must be HER calendar's ID — for a personal Gmail account, that's
+// just her email address (e.g. harmony@gmail.com), not "primary". "primary"
+// only makes sense for the account that's actually authenticated, and a
+// service account has no calendar of its own — it only sees calendars
+// explicitly shared with it (see the sharing step above).
+const CALENDAR_ID = process.env.GOOGLE_CALENDAR_ID;
 
 // Her standing business hours. This is the one thing that isn't "just her
 // calendar" — if these ever need to change, that's a quick code edit
