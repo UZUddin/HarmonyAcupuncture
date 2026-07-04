@@ -25,8 +25,38 @@ const { google } = require('googleapis');
 // her calendar with an assistant — nothing about Google Cloud involved.
 // ============================================================
 
+// Fail loudly and clearly at startup if required env vars are missing or
+// malformed, instead of letting a bare JSON.parse error show up in Render's
+// logs with no indication of what actually went wrong.
+if (!process.env.GOOGLE_SERVICE_ACCOUNT_KEY) {
+  throw new Error(
+    "GOOGLE_SERVICE_ACCOUNT_KEY is not set. Set it in Render's Environment " +
+    'tab to the full contents of the service account JSON key, minified to ' +
+    'one line. See DEPLOYMENT.md for setup steps.'
+  );
+}
+
+let serviceAccountCredentials;
+try {
+  serviceAccountCredentials = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_KEY);
+} catch (err) {
+  throw new Error(
+    'GOOGLE_SERVICE_ACCOUNT_KEY is set but is not valid JSON. Double-check ' +
+    'it was pasted as a single-line, unmodified copy of the downloaded key ' +
+    'file (quotes and all).'
+  );
+}
+
+if (!process.env.GOOGLE_CALENDAR_ID) {
+  throw new Error(
+    'GOOGLE_CALENDAR_ID is not set. This should be her actual calendar ' +
+    'email address (e.g. harmony@gmail.com) — never "primary", since a ' +
+    'service account has no calendar of its own.'
+  );
+}
+
 const serviceAccountAuth = new google.auth.GoogleAuth({
-  credentials: JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_KEY),
+  credentials: serviceAccountCredentials,
   scopes: ['https://www.googleapis.com/auth/calendar'],
 });
 

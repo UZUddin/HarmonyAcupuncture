@@ -1,5 +1,5 @@
-# Place this at the root of the FRONTEND repo/folder (where
-# harmony-acupuncture.html and harmony-dashboard.html live), not the backend.
+# Place this at the root of the FRONTEND repo/folder (where index.html and
+# harmony-calendar-helper.html live), not the backend.
 
 [build]
   publish = "."
@@ -12,10 +12,11 @@
     Referrer-Policy = "strict-origin-when-cross-origin"
     Permissions-Policy = "geolocation=(), microphone=(), camera=()"
 
-# Redirect the dashboard to a non-guessable-but-still-auth-gated path is not
-# real security — actual protection is Supabase Auth login on that page
-# (see harmony-dashboard.html's login flow). This just avoids indexing it.
+# Real protection on the Schedule Helper is the shared ADMIN_PASSCODE
+# checked server-side on every request (see requireAdminPasscode.js). This
+# header just keeps the page out of search engine indexes — it's not
+# security on its own.
 [[headers]]
-  for = "/dashboard*"
+  for = "/harmony-calendar-helper.html"
   [headers.values]
     X-Robots-Tag = "noindex"

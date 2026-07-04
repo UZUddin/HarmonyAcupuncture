@@ -61,9 +61,27 @@ A few specifics:
   in Google Calendar.
 
 ## The one thing you'll do during setup (not after)
-When we first connect the website to your calendar, Google will show you
-a screen asking "Allow this app to see your calendar?" You'll click
-**Allow** once. That's it — a single click, one time, and then it's done.
+When we first connect the website to your calendar, you'll do one quick
+thing in Google Calendar itself — not on the website, and not a "sign in
+with Google" screen. It's the exact same action as sharing your calendar
+with an assistant:
+
+1. Open Google Calendar (calendar.google.com)
+2. Click the gear icon → Settings
+3. Click your calendar's name in the left sidebar
+4. Scroll to "Share with specific people or groups" → **Add people and
+   groups**
+5. Paste in the address I give you (it'll look like an email address,
+   but it belongs to the website, not a person)
+6. Set permission to **"Make changes to events"** → click **Send**
+
+That's it — a few clicks, one time, and then it's done. You won't see
+any "Allow access?" popup or sign-in screen; you're just sharing your
+calendar the same way you'd share it with a front-desk assistant.
+
+**If you ever want to undo this:** go back to the same sharing screen and
+remove that entry. The website immediately loses access — no password to
+change, nothing else to update.
 
 ## If you ever want to change your regular hours
 (For example: "I'm not working Fridays anymore" or "I want to open

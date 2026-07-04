@@ -7,14 +7,29 @@ const router = express.Router();
 const SERVICE_DURATIONS_MIN = { initial_consultation: 75, follow_up: 45, special: 60 };
 const SLOT_INCREMENT_MIN = 30;
 
+// Reject '<' and '>' outright in free-text fields. These fields end up in
+// the calendar event summary/description, which the Schedule Helper later
+// renders in the admin dashboard — blocking angle brackets here closes off
+// HTML/script injection at the source, as a second layer behind the
+// frontend's own escaping on render.
+const noHtmlText = (max) =>
+  z
+    .string()
+    .max(max)
+    .refine((val) => !/[<>]/.test(val), { message: 'Please remove any < or > characters.' });
+
 const bookingSchema = z
   .object({
-    full_name: z.string().min(1).max(120),
+    full_name: z
+      .string()
+      .min(1)
+      .max(120)
+      .refine((val) => !/[<>]/.test(val), { message: 'Please remove any < or > characters.' }),
     email: z.string().email().max(200).optional().or(z.literal('')),
     phone: z.string().min(7).max(20),
     service_type: z.enum(['initial_consultation', 'follow_up', 'special']),
     starts_at: z.string().datetime(),
-    chief_complaint: z.string().max(1000).optional(),
+    chief_complaint: noHtmlText(1000).optional(),
     calendar_opt_in: z.boolean().default(false),
     consent_given: z.literal(true, {
       errorMap: () => ({ message: 'Please check the consent box to continue.' }),

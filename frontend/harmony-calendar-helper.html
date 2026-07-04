@@ -93,6 +93,17 @@ h1 { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 500
 // TODO: replace with your real Render URL once deployed
 const API_BASE = 'https://harmonyacupuncture.onrender.com';
 let passcode = localStorage.getItem('harmony_admin_passcode') || '';
+
+// Patient-submitted text (like their name, which becomes the calendar
+// event summary) is untrusted and can contain HTML/script. Anything from
+// the API that gets inserted via innerHTML MUST go through this first, or
+// a malicious booking name could run script in this page — which has
+// access to the admin passcode in localStorage.
+function escapeHtml(str) {
+  const div = document.createElement('div');
+  div.textContent = String(str ?? '');
+  return div.innerHTML;
+}
 let weekStartOffset = 0; // days from today
 
 function isZh() { return document.body.classList.contains('zh'); }
@@ -205,7 +216,7 @@ async function loadDay(dateStr) {
           actionBtns = `<button class="delete-btn" onclick="deleteBlock('${ev.id}','${dateStr}')" aria-label="Delete">✕</button>`;
         }
         html += `<div class="event-row">
-          <div><span class="event-time">${start} – ${end}</span><span class="event-label">${ev.summary}</span>${tag}</div>
+          <div><span class="event-time">${start} – ${end}</span><span class="event-label">${escapeHtml(ev.summary)}</span>${tag}</div>
           <div style="display:flex;gap:6px;">${actionBtns}</div>
         </div>`;
         if (ev.isPatientBooking) {
