@@ -85,7 +85,7 @@ change, nothing else to update.
 
 ## If you ever want to change your regular hours
 (For example: "I'm not working Fridays anymore" or "I want to open
-earlier on Saturdays.") Just message [your name] — that's a quick code
+earlier on Saturdays.") Just message Umamah — that's a quick code
 change, not something you need to do yourself.
 
 ## What you don't need to worry about

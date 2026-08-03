@@ -9,6 +9,30 @@ the Schedule Helper loaded.
 
 ---
 
+## Before the meeting (do these first)
+
+Small things to fix *before* she sees the site, so the reveal lands clean:
+
+- **Her name on the site.** The About section still reads "Dr. [Name]" in
+  `frontend/index.html` (English copy, "About the practitioner" section).
+  Replace it with her actual name before sharing the link.
+- **Testimonials.** The three reviews were placeholders and are now
+  commented out (see the note in `index.html`). If she has real,
+  permission-cleared reviews, swap them in and remove the comment markers;
+  otherwise leave the section hidden. Do not ship invented reviews on a
+  licensed practice's site.
+- **Which link is which.** Show her only the public site
+  (`https://harmonyacupuncture.netlify.app`, or `hatcm.com` once DNS is
+  pointed). Never the backend (`harmonyacupuncture.onrender.com`) — that's
+  the API and only returns JSON.
+- **Heads-up on timing.** Until Part 1 is done, the *booking step* won't
+  complete — the design is viewable but "Confirm appointment" errors,
+  because the backend isn't connected to her calendar yet. If you send the
+  link before the setup session, frame it as "here's the look and feel,"
+  not "try booking."
+
+---
+
 ## Part 1: Google Cloud setup (~10 min)
 
 **Goal:** she ends up owning the Google Cloud project. Her actual
@@ -84,6 +108,36 @@ Things to specifically watch for and ask about:
   Sat 9–1, Sun closed) against her real hours.
 - Ask if she wants the real `ADMIN_PASSCODE` to be something specific —
   pick it with her now if it comes up naturally.
+
+---
+
+## Part 4: Handing over ownership (~5 min)
+
+The goal from day one was a clean exit — nothing running under your
+accounts once this is hers. Two pieces:
+
+1. **The deployment accounts.** By the end of Part 1 the Google Cloud
+   project is already under her Google account. Confirm the Render and
+   Netlify sites are on accounts *she* owns, or transfer them (Render →
+   project → Settings → transfer; Netlify → site → Site configuration →
+   transfer). If either was created under your account for convenience,
+   this is the step that actually hands it over.
+2. **The source code.** So the repo doesn't live under `UZUddin/`
+   forever:
+   - If she has (or will make) a GitHub account: repo → Settings →
+     **Transfer ownership** → her username. Cleanest option.
+   - If she'd rather not deal with GitHub: hand her a zip of the source
+     (`git archive -o harmony-site.zip HEAD`) to keep somewhere safe. She
+     owns a copy without needing an account.
+   - Either way she owns the code; the copy under your account can then be
+     deleted or kept as an inert backup — your call.
+
+Note: she never needs the repo to *use* the site — it runs from
+Netlify/Render, not GitHub. The repo transfer is about ownership of the
+source, not day-to-day use.
+
+Once accounts + source are hers and the passcode is handed over directly,
+nothing technical still points back at you.
 
 ---
 
