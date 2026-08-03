@@ -37,7 +37,11 @@ const blockSchema = z.object({
   date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
   start_time: z.string().regex(/^\d{2}:\d{2}$/),
   end_time: z.string().regex(/^\d{2}:\d{2}$/),
-  label: z.string().max(100).optional(),
+  label: z
+    .string()
+    .max(100)
+    .refine((val) => !/[<>]/.test(val), { message: 'Please remove any < or > characters.' })
+    .optional(),
 });
 
 router.post('/block', async (req, res, next) => {

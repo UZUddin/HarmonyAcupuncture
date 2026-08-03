@@ -1,0 +1,63 @@
+diff --git a/backend/middleware/requireAdminPasscode.js b/backend/middleware/requireAdminPasscode.js
+index f407c60..58f5ddd 100644
+--- a/backend/middleware/requireAdminPasscode.js
++++ b/backend/middleware/requireAdminPasscode.js
+@@ -3,9 +3,21 @@
+ // keeps the calendar helper dashboard from being usable by anyone who
+ // stumbles on the URL. Treat ADMIN_PASSCODE like a house key: simple,
+ // but only give it to her.
++const crypto = require('crypto');
++
++// Constant-time comparison. Hashing both sides to a fixed 32 bytes first means
++// timingSafeEqual never sees unequal-length buffers (which would throw and also
++// leak length), so this is safe for arbitrary input.
++function safeEqual(a, b) {
++  const ha = crypto.createHash('sha256').update(String(a)).digest();
++  const hb = crypto.createHash('sha256').update(String(b)).digest();
++  return crypto.timingSafeEqual(ha, hb);
++}
++
+ function requireAdminPasscode(req, res, next) {
+   const provided = req.headers['x-admin-passcode'];
+-  if (!provided || provided !== process.env.ADMIN_PASSCODE) {
++  const expected = process.env.ADMIN_PASSCODE;
++  if (!provided || !expected || !safeEqual(provided, expected)) {
+     return res.status(401).json({ error: 'Incorrect passcode.' });
+   }
+   next();
+diff --git a/backend/routes/admin.js b/backend/routes/admin.js
+index d34998f..6d94b91 100644
+--- a/backend/routes/admin.js
++++ b/backend/routes/admin.js
+@@ -37,7 +37,11 @@ const blockSchema = z.object({
+   date: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+   start_time: z.string().regex(/^\d{2}:\d{2}$/),
+   end_time: z.string().regex(/^\d{2}:\d{2}$/),
+-  label: z.string().max(100).optional(),
++  label: z
++    .string()
++    .max(100)
++    .refine((val) => !/[<>]/.test(val), { message: 'Please remove any < or > characters.' })
++    .optional(),
+ });
+ 
+ router.post('/block', async (req, res, next) => {
+diff --git a/backend/routes/bookings.js b/backend/routes/bookings.js
+index 1086651..426c779 100644
+--- a/backend/routes/bookings.js
++++ b/backend/routes/bookings.js
+@@ -26,7 +26,13 @@ const bookingSchema = z
+       .max(120)
+       .refine((val) => !/[<>]/.test(val), { message: 'Please remove any < or > characters.' }),
+     email: z.string().email().max(200).optional().or(z.literal('')),
+-    phone: z.string().min(7).max(20),
++    phone: z
++      .string()
++      .min(7)
++      .max(20)
++      .regex(/^[\d\s+()\-]+$/, {
++        message: 'Please enter a valid phone number (digits and + ( ) - only).',
++      }),
+     service_type: z.enum(['initial_consultation', 'follow_up', 'special']),
+     starts_at: z.string().datetime(),
+     chief_complaint: noHtmlText(1000).optional(),

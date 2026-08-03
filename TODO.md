@@ -40,7 +40,6 @@ is sharing her calendar with the service account's email address.
       do the DNS swap last
 - [ ] Change `ADMIN_PASSCODE` from `AzureDuan` to something real, chosen
       *with* her since she's the one typing it
-- [ ] Consider translating `HOW-IT-WORKS-FOR-HER.md` to Chinese
 - [ ] Rename `_gitignore` → `.gitignore` and `_env.example` →
       `.env.example` before/when pushing to GitHub, if not already done
 

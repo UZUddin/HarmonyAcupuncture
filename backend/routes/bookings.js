@@ -26,7 +26,13 @@ const bookingSchema = z
       .max(120)
       .refine((val) => !/[<>]/.test(val), { message: 'Please remove any < or > characters.' }),
     email: z.string().email().max(200).optional().or(z.literal('')),
-    phone: z.string().min(7).max(20),
+    phone: z
+      .string()
+      .min(7)
+      .max(20)
+      .regex(/^[\d\s+()\-]+$/, {
+        message: 'Please enter a valid phone number (digits and + ( ) - only).',
+      }),
     service_type: z.enum(['initial_consultation', 'follow_up', 'special']),
     starts_at: z.string().datetime(),
     chief_complaint: noHtmlText(1000).optional(),
