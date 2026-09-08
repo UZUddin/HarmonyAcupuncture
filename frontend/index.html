@@ -726,7 +726,7 @@ footer::before { content: '和'; font-family: 'Noto Serif SC', serif; font-size:
     <div class="call-banner" role="complementary" aria-label="Phone booking option">
       <div>
         <h3><span class="en-show">Prefer to call?</span><span class="zh-show">更喜欢电话预约？</span></h3>
-        <p><span class="en-show">Mon – Sat · 9:00 am – 6:00 pm</span><span class="zh-show">周一至周六 · 上午9时至下午6时</span></p>
+        <p><span class="en-show">Call anytime — we'll find a time that works.</span><span class="zh-show">随时致电 — 我们会为您安排合适的时间。</span></p>
       </div>
       <a href="tel:+17703108070" class="call-btn">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8 19.79 19.79 0 01.99 1.18 2 2 0 013 .01h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L7.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg>
@@ -796,9 +796,8 @@ footer::before { content: '和'; font-family: 'Noto Serif SC', serif; font-size:
       <div class="footer-col">
         <h2><span class="en-show">Hours</span><span class="zh-show">营业时间</span></h2>
         <ul>
-          <li><span class="en-show">Mon – Fri, 9am – 6pm</span><span class="zh-show">周一至周五 9–18时</span></li>
-          <li><span class="en-show">Saturday, 9am – 1pm</span><span class="zh-show">周六 9–13时</span></li>
-          <li><span class="en-show">Sunday closed</span><span class="zh-show">周日休息</span></li>
+          <li><span class="en-show">By appointment — hours vary by week</span><span class="zh-show">预约制 — 每周时间不同</span></li>
+          <li><span class="en-show">See live availability when booking above</span><span class="zh-show">请在上方预约处查看实时可预约时间</span></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -840,10 +839,10 @@ let currentStep = 1;
 
 function isZh() { return document.body.classList.contains('zh'); }
 
-// Closed on Sundays (day 0) — matches the business hours in the footer.
-// Only used to decide which day-cards to show; the backend is still the
-// real source of truth for exact open times.
-function isClosedDay(date) { return date.getDay() === 0; }
+// She has no fixed weekly schedule anymore — any day, including Sunday,
+// might be open depending on what she's added in the Schedule Helper. Date
+// cards are no longer pre-filtered by day of week; loadSlots() below shows
+// "No open times that day" for whichever ones she hasn't opened.
 
 function buildDateCards() {
   const grid = document.getElementById('date-grid');
@@ -856,7 +855,6 @@ function buildDateCards() {
     const d = new Date(today);
     d.setDate(today.getDate() + offset);
     offset++;
-    if (isClosedDay(d)) continue;
 
     const dateStr = d.toISOString().split('T')[0];
     const dayLabel = d.toLocaleDateString(isZh() ? 'zh-CN' : 'en-US', { weekday: 'short' });
