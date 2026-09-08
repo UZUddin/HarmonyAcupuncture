@@ -1,3 +1,28 @@
+
+/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Harmony calendar helper · HTML
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,14 +41,14 @@ body { font-family: 'Inter', sans-serif; background: var(--cream); color: var(--
 body.zh { font-family: 'Noto Serif SC', 'Inter', serif; }
 body.zh .zh-show { display: inline; } body.zh .en-show { display: none; }
 body:not(.zh) .zh-show { display: none; } body:not(.zh) .en-show { display: inline; }
-
+ 
 .wrap { max-width: 640px; margin: 0 auto; }
 .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
 h1 { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 500; }
 .lang-toggle { display: flex; border: 1px solid var(--border); border-radius: 20px; overflow: hidden; background: #fff; }
 .lang-btn { padding: 7px 14px; font-size: 13px; border: none; background: none; cursor: pointer; color: var(--text-muted); }
 .lang-btn.active { background: var(--sage); color: #fff; font-weight: 600; }
-
+ 
 /* PASSCODE SCREEN */
 #passcode-screen { max-width: 380px; margin: 4rem auto; text-align: center; }
 #passcode-screen p { color: var(--text-muted); margin-bottom: 1.5rem; font-size: 15px; }
@@ -32,12 +57,12 @@ h1 { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 500
 .status-msg { color: var(--text-muted); font-size: 14px; margin-top: 10px; min-height: 20px; }
 .big-btn { width: 100%; padding: 16px; font-size: 17px; font-weight: 600; border-radius: 8px; border: none; background: var(--sage); color: #fff; cursor: pointer; }
 .big-btn:hover { background: var(--sage-dark); }
-
+ 
 #dashboard { display: none; }
 .week-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; gap: 10px; }
 .week-nav button { padding: 12px 18px; font-size: 15px; font-weight: 500; border: 2px solid var(--border); background: #fff; border-radius: 8px; cursor: pointer; }
 .week-nav button:disabled { opacity: 0.4; cursor: not-allowed; }
-
+ 
 .day-card { background: #fff; border: 1px solid var(--border); border-radius: 10px; margin-bottom: 14px; overflow: hidden; }
 .day-header { padding: 14px 18px; background: var(--cream-mid); display: flex; justify-content: space-between; align-items: baseline; }
 .day-name { font-family: 'Cormorant Garamond', serif; font-size: 19px; font-weight: 600; }
@@ -48,11 +73,13 @@ h1 { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 500
 .event-time { font-size: 15px; font-weight: 500; }
 .event-label { font-size: 13px; color: var(--text-muted); margin-left: 8px; }
 .event-tag { font-size: 11px; background: var(--sage-light); color: var(--sage-dark); padding: 2px 8px; border-radius: 10px; margin-left: 8px; }
+.event-tag.open-tag { background: #fff3d6; color: #8a5a00; }
 .delete-btn { background: none; border: 1px solid var(--border); border-radius: 6px; width: 32px; height: 32px; cursor: pointer; color: var(--red); font-size: 16px; }
 .no-events { font-size: 14px; color: var(--text-muted); padding: 6px 0; }
 .closed-note { font-size: 14px; color: var(--text-muted); font-style: italic; padding: 6px 0; }
-
+ 
 .add-block-btn { width: 100%; padding: 12px; margin-top: 10px; font-size: 14px; font-weight: 600; color: var(--sage-dark); background: var(--sage-light); border: none; border-radius: 8px; cursor: pointer; }
+.add-block-btn.open-btn { color: #8a5a00; background: #fff3d6; }
 .add-block-form { display: none; margin-top: 12px; padding-top: 12px; border-top: 1px dashed var(--border); }
 .add-block-form.open { display: block; }
 .form-row-inline { display: flex; gap: 10px; margin-bottom: 10px; }
@@ -72,7 +99,7 @@ h1 { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 500
       <button class="lang-btn" id="btn-zh" onclick="setLang('zh')">中文</button>
     </div>
   </div>
-
+ 
   <div id="passcode-screen">
     <p><span class="en-show">Enter your passcode to manage your schedule.</span><span class="zh-show">请输入密码以管理您的日程。</span></p>
     <input type="password" id="passcode-input" inputmode="text" />
@@ -80,7 +107,7 @@ h1 { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 500
     <p id="passcode-status" class="status-msg"></p>
     <p id="passcode-error"></p>
   </div>
-
+ 
   <div id="dashboard">
     <div class="week-nav">
       <button id="prev-week-btn" onclick="shiftWeek(-1)">← <span class="en-show">Back</span><span class="zh-show">上一周</span></button>
@@ -90,12 +117,12 @@ h1 { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 500
     <div id="days-container"></div>
   </div>
 </div>
-
+ 
 <script>
 // TODO: replace with your real Render URL once deployed
 const API_BASE = 'https://harmonyacupuncture.onrender.com';
 let passcode = localStorage.getItem('harmony_admin_passcode') || '';
-
+ 
 // Patient-submitted text (like their name, which becomes the calendar
 // event summary) is untrusted and can contain HTML/script. Anything from
 // the API that gets inserted via innerHTML MUST go through this first, or
@@ -107,29 +134,29 @@ function escapeHtml(str) {
   return div.innerHTML;
 }
 let weekOffset = 0; // weeks from the current week (0 = this week, -1 = last week, etc.)
-
+ 
 // Guards against the auto-login (fires on page load using a cached
 // passcode) and a manual submit racing each other — especially once Render's
 // free-tier backend is cold and a request can take 20-50+ seconds. Whichever
 // attempt is LATEST wins; a slow, stale response is ignored instead of
 // silently flipping the screen to "logged in".
 let authAttemptId = 0;
-
+ 
 function isZh() { return document.body.classList.contains('zh'); }
-
+ 
 function setLang(lang) {
   document.body.classList.toggle('zh', lang === 'zh');
   document.getElementById('btn-en').classList.toggle('active', lang === 'en');
   document.getElementById('btn-zh').classList.toggle('active', lang === 'zh');
   if (document.getElementById('dashboard').style.display === 'block') renderWeek();
 }
-
+ 
 function showDashboard() {
   document.getElementById('passcode-screen').style.display = 'none';
   document.getElementById('dashboard').style.display = 'block';
   renderWeek();
 }
-
+ 
 async function checkPasscode() {
   const input = document.getElementById('passcode-input').value.trim();
   const errorEl = document.getElementById('passcode-error');
@@ -140,11 +167,11 @@ async function checkPasscode() {
   statusEl.textContent = isZh() ? '正在检查密码…' : 'Checking passcode…';
   enterBtn.disabled = true;
   enterBtn.textContent = isZh() ? '正在检查…' : 'Checking…';
-
+ 
   try {
     const res = await fetch(`${API_BASE}/api/admin/verify`, { headers: { 'X-Admin-Passcode': input } });
     if (myAttempt !== authAttemptId) return; // a newer attempt has already taken over
-
+ 
     if (!res.ok) {
       statusEl.textContent = '';
       errorEl.textContent = isZh() ? '密码错误，请重试。' : 'Incorrect passcode — please try again.';
@@ -165,7 +192,7 @@ async function checkPasscode() {
     }
   }
 }
-
+ 
 // Auto-login if a passcode was saved from a previous visit. If it turns out
 // to be wrong (e.g. it was rotated), clear it immediately instead of
 // leaving a dead passcode in localStorage that keeps quietly re-trying —
@@ -191,7 +218,7 @@ window.addEventListener('DOMContentLoaded', async () => {
     statusEl.textContent = ''; // network hiccup on the silent auto-login — stay on passcode screen, don't clear it
   }
 });
-
+ 
 // weekOffset counts whole WEEKS from the current week, not days from today —
 // this lets the grid always start on Monday and lets her page back through
 // past weeks (e.g. to check a past booking), not just forward.
@@ -199,7 +226,7 @@ function shiftWeek(weeks, resetToToday) {
   weekOffset = resetToToday ? 0 : weekOffset + weeks;
   renderWeek();
 }
-
+ 
 // Monday of (this week + offset weeks), at local midnight.
 function getWeekStart(offset) {
   const d = new Date();
@@ -209,20 +236,20 @@ function getWeekStart(offset) {
   d.setDate(d.getDate() + diffToMonday + offset * 7);
   return d;
 }
-
+ 
 function fmtDate(d) { return d.toISOString().split('T')[0]; }
-
+ 
 async function renderWeek() {
   const container = document.getElementById('days-container');
   container.innerHTML = '';
   const weekStart = getWeekStart(weekOffset);
-
+ 
   for (let i = 0; i < 7; i++) {
     const d = new Date(weekStart);
     d.setDate(d.getDate() + i);
     const dateStr = fmtDate(d);
     const dayLabel = d.toLocaleDateString(isZh() ? 'zh-CN' : 'en-US', { weekday: 'long', month: 'short', day: 'numeric' });
-
+ 
     const card = document.createElement('div');
     card.className = 'day-card';
     card.innerHTML = `
@@ -237,21 +264,27 @@ async function renderWeek() {
     loadDay(dateStr);
   }
 }
-
+ 
 async function loadDay(dateStr) {
   const bodyEl = document.getElementById(`body-${dateStr}`);
   const hoursEl = document.getElementById(`hours-${dateStr}`);
-
+ 
   try {
     const res = await fetch(`${API_BASE}/api/admin/day?date=${dateStr}`, { headers: { 'X-Admin-Passcode': passcode } });
     const data = await res.json();
-
-    if (!data.businessHours) {
-      hoursEl.textContent = isZh() ? '休息' : 'Closed';
+ 
+    if (!data.openWindows || data.openWindows.length === 0) {
+      hoursEl.textContent = isZh() ? '未开放' : 'Not open yet';
     } else {
-      hoursEl.textContent = `${data.businessHours.start} – ${data.businessHours.end}`;
+      hoursEl.textContent = data.openWindows
+        .map((w) => {
+          const s = new Date(w.start).toLocaleTimeString(isZh() ? 'zh-CN' : 'en-US', { hour: 'numeric', minute: '2-digit' });
+          const e = new Date(w.end).toLocaleTimeString(isZh() ? 'zh-CN' : 'en-US', { hour: 'numeric', minute: '2-digit' });
+          return `${s} – ${e}`;
+        })
+        .join(', ');
     }
-
+ 
     let html = '';
     if (!data.events || data.events.length === 0) {
       html += `<p class="no-events">${isZh() ? '当天没有安排。' : 'Nothing scheduled.'}</p>`;
@@ -261,6 +294,8 @@ async function loadDay(dateStr) {
         const end = new Date(ev.end).toLocaleTimeString(isZh() ? 'zh-CN' : 'en-US', { hour: 'numeric', minute: '2-digit' });
         const tag = ev.isPatientBooking
           ? `<span class="event-tag">${isZh() ? '患者预约' : 'Patient'}</span>`
+          : ev.isOpenOverride
+          ? `<span class="event-tag open-tag">${isZh() ? '可预约时间' : 'Open'}</span>`
           : '';
         let actionBtns = '';
         if (ev.isPatientBooking) {
@@ -288,7 +323,7 @@ async function loadDay(dateStr) {
         }
       });
     }
-
+ 
     {
       html += `<button class="add-block-btn" onclick="toggleAddForm('${dateStr}')">+ ${isZh() ? '添加不可预约时间' : 'Add busy time'}</button>
         <div class="add-block-form" id="form-${dateStr}">
@@ -300,15 +335,26 @@ async function loadDay(dateStr) {
           <input type="text" id="label-${dateStr}" placeholder="${isZh() ? '例如：午餐' : 'e.g. Lunch'}" />
           <button class="save-block-btn" onclick="saveBlock('${dateStr}')">${isZh() ? '保存' : 'Save'}</button>
           <p class="form-error" id="error-${dateStr}"></p>
+        </div>
+        <button class="add-block-btn open-btn" onclick="toggleOpenForm('${dateStr}')">+ ${isZh() ? '添加可预约时间' : 'Add free time'}</button>
+        <div class="add-block-form" id="open-form-${dateStr}">
+          <div class="form-row-inline">
+            <div><label>${isZh() ? '开始时间' : 'Start'}</label>${buildTimeSelect(`open-start-${dateStr}`)}</div>
+            <div><label>${isZh() ? '结束时间' : 'End'}</label>${buildTimeSelect(`open-end-${dateStr}`)}</div>
+          </div>
+          <label>${isZh() ? '备注（选填）' : 'Label (optional)'}</label>
+          <input type="text" id="open-label-${dateStr}" placeholder="${isZh() ? '例如：特别开放' : 'e.g. Special hours'}" />
+          <button class="save-block-btn" onclick="saveOpenTime('${dateStr}')">${isZh() ? '保存' : 'Save'}</button>
+          <p class="form-error" id="open-error-${dateStr}"></p>
         </div>`;
     }
-
+ 
     bodyEl.innerHTML = html;
   } catch (err) {
     bodyEl.innerHTML = `<p class="no-events" style="color:var(--red);">${isZh() ? '加载失败。' : 'Failed to load.'}</p>`;
   }
 }
-
+ 
 function buildTimeSelect(id) {
   let options = '';
   for (let h = 7; h <= 20; h++) {
@@ -321,18 +367,46 @@ function buildTimeSelect(id) {
   }
   return `<select id="${id}">${options}</select>`;
 }
-
+ 
 function toggleAddForm(dateStr) {
   document.getElementById(`form-${dateStr}`).classList.toggle('open');
 }
-
+ 
+function toggleOpenForm(dateStr) {
+  document.getElementById(`open-form-${dateStr}`).classList.toggle('open');
+}
+ 
+async function saveOpenTime(dateStr) {
+  const start_time = document.getElementById(`open-start-${dateStr}`).value;
+  const end_time = document.getElementById(`open-end-${dateStr}`).value;
+  const label = document.getElementById(`open-label-${dateStr}`).value.trim() || (isZh() ? '可预约' : 'Available');
+  const errorEl = document.getElementById(`open-error-${dateStr}`);
+  errorEl.textContent = '';
+ 
+  try {
+    const res = await fetch(`${API_BASE}/api/admin/open-time`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'X-Admin-Passcode': passcode },
+      body: JSON.stringify({ date: dateStr, start_time, end_time, label }),
+    });
+    const data = await res.json();
+    if (!res.ok) {
+      errorEl.textContent = data.error || (isZh() ? '保存失败。' : 'Failed to save.');
+      return;
+    }
+    loadDay(dateStr);
+  } catch (err) {
+    errorEl.textContent = isZh() ? '网络错误。' : 'Network error.';
+  }
+}
+ 
 async function saveBlock(dateStr) {
   const start_time = document.getElementById(`start-${dateStr}`).value;
   const end_time = document.getElementById(`end-${dateStr}`).value;
   const label = document.getElementById(`label-${dateStr}`).value.trim() || (isZh() ? '不可预约' : 'Blocked');
   const errorEl = document.getElementById(`error-${dateStr}`);
   errorEl.textContent = '';
-
+ 
   try {
     const res = await fetch(`${API_BASE}/api/admin/block`, {
       method: 'POST',
@@ -349,7 +423,7 @@ async function saveBlock(dateStr) {
     errorEl.textContent = isZh() ? '网络错误。' : 'Network error.';
   }
 }
-
+ 
 async function deleteBlock(eventId, dateStr) {
   try {
     const res = await fetch(`${API_BASE}/api/admin/block/${eventId}?date=${dateStr}`, {
@@ -366,18 +440,18 @@ async function deleteBlock(eventId, dateStr) {
     alert(isZh() ? '网络错误。' : 'Network error.');
   }
 }
-
+ 
 function toggleRescheduleForm(eventId) {
   document.getElementById(`reschedule-${eventId}`).classList.toggle('open');
 }
-
+ 
 async function saveReschedule(eventId, originalDate) {
   const new_date = document.getElementById(`reschedule-date-${eventId}`).value;
   const start_time = document.getElementById(`reschedule-start-${eventId}`).value;
   const end_time = document.getElementById(`reschedule-end-${eventId}`).value;
   const errorEl = document.getElementById(`reschedule-error-${eventId}`);
   errorEl.textContent = '';
-
+ 
   try {
     const res = await fetch(`${API_BASE}/api/admin/appointment/${eventId}`, {
       method: 'PATCH',
@@ -395,11 +469,11 @@ async function saveReschedule(eventId, originalDate) {
     errorEl.textContent = isZh() ? '网络错误。' : 'Network error.';
   }
 }
-
+ 
 async function cancelAppointment(eventId, dateStr) {
   const confirmMsg = isZh() ? '确定要取消此预约吗？患者将收到通知。' : 'Cancel this appointment? The patient will be notified.';
   if (!confirm(confirmMsg)) return;
-
+ 
   try {
     const res = await fetch(`${API_BASE}/api/admin/appointment/${eventId}?date=${dateStr}`, {
       method: 'DELETE',
@@ -418,3 +492,4 @@ async function cancelAppointment(eventId, dateStr) {
 </script>
 </body>
 </html>
+ 
