@@ -69,10 +69,11 @@ const calendar = google.calendar({ version: 'v3', auth: serviceAccountAuth });
 // explicitly shared with it (see the sharing step above).
 const CALENDAR_ID = process.env.GOOGLE_CALENDAR_ID;
 
-// Her standing business hours. This is the one thing that isn't "just her
-// calendar" — if these ever need to change, that's a quick code edit
-// (a few minutes), not something to build a settings screen for.
-// Matches the hours already shown in the site footer.
+// NOT used to gate bookings anymore — she's a side-hustle practice with no
+// fixed weekly schedule, so nothing is open by default. Availability comes
+// entirely from the open-time windows she adds via createOpenOverrideEvent
+// (see getOpenWindows below). Kept here only in case a future version wants
+// a "these are my usual hours" fallback again.
 const BUSINESS_HOURS = {
   0: null, // Sunday - closed
   1: { start: '09:00', end: '18:00' }, // Monday
@@ -136,6 +137,10 @@ async function listDayEvents(dayStart, dayEnd) {
     // her own personal blocks never do. This distinguishes them so the
     // dashboard can protect patient appointments from accidental deletion.
     isPatientBooking: Boolean(event.attendees && event.attendees.length > 0),
+    // A one-off "open this window" exception she added herself (see
+    // createOpenOverrideEvent below) — the dashboard tags these distinctly
+    // from an ordinary busy block.
+    isOpenOverride: event.extendedProperties?.private?.harmonyType === 'open_override',
   }));
 }
 
@@ -153,6 +158,47 @@ async function createBlockEvent({ summary, start, end }) {
     },
   });
   return res.data.id;
+}
+
+// Opens up a window of bookable time. This is her PRIMARY way of setting
+// availability, not a rare exception — she's a side-hustle practice with no
+// fixed weekly schedule, so nothing is open by default (see getOpenWindows
+// below and how bookings.js uses it). Each week she adds whichever windows
+// she's actually free. transparency:'transparent' means the event itself
+// never counts as "busy" on her calendar, and it's tagged via
+// extendedProperties so getOpenWindows() (used by the public booking
+// endpoint) can find it.
+async function createOpenOverrideEvent({ summary, start, end }) {
+  const res = await calendar.events.insert({
+    calendarId: CALENDAR_ID,
+    requestBody: {
+      summary: summary || 'Available',
+      start: { dateTime: start.toISOString() },
+      end: { dateTime: end.toISOString() },
+      transparency: 'transparent',
+      extendedProperties: { private: { harmonyType: 'open_override' } },
+    },
+  });
+  return res.data.id;
+}
+
+// Returns ALL open windows on this date (she may add more than one, e.g.
+// 9-12 and 2-4 the same day) as an array of {start, end} Dates. An empty
+// array means she hasn't opened any time that day — the public booking
+// endpoint treats that as fully closed.
+async function getOpenWindows(dayStart, dayEnd) {
+  const res = await calendar.events.list({
+    calendarId: CALENDAR_ID,
+    timeMin: dayStart.toISOString(),
+    timeMax: dayEnd.toISOString(),
+    singleEvents: true,
+    orderBy: 'startTime',
+    privateExtendedProperty: 'harmonyType=open_override',
+  });
+  return (res.data.items || []).map((event) => ({
+    start: new Date(event.start.dateTime),
+    end: new Date(event.end.dateTime),
+  }));
 }
 
 // Only ever used to delete HER OWN blocks, never a patient booking — the
@@ -188,6 +234,8 @@ module.exports = {
   createCalendarEvent,
   listDayEvents,
   createBlockEvent,
+  createOpenOverrideEvent,
+  getOpenWindows,
   deleteEvent,
   updateEventTime,
   cancelPatientAppointment,
