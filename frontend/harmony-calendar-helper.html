@@ -29,6 +29,7 @@ h1 { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 500
 #passcode-screen p { color: var(--text-muted); margin-bottom: 1.5rem; font-size: 15px; }
 #passcode-input { width: 100%; padding: 16px; font-size: 20px; text-align: center; border: 2px solid var(--border); border-radius: 8px; margin-bottom: 1rem; letter-spacing: 0.05em; }
 #passcode-error { color: var(--red); font-size: 14px; margin-top: 10px; min-height: 20px; }
+.status-msg { color: var(--text-muted); font-size: 14px; margin-top: 10px; min-height: 20px; }
 .big-btn { width: 100%; padding: 16px; font-size: 17px; font-weight: 600; border-radius: 8px; border: none; background: var(--sage); color: #fff; cursor: pointer; }
 .big-btn:hover { background: var(--sage-dark); }
 
@@ -75,15 +76,16 @@ h1 { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 500
   <div id="passcode-screen">
     <p><span class="en-show">Enter your passcode to manage your schedule.</span><span class="zh-show">请输入密码以管理您的日程。</span></p>
     <input type="password" id="passcode-input" inputmode="text" />
-    <button class="big-btn" onclick="checkPasscode()"><span class="en-show">Enter</span><span class="zh-show">进入</span></button>
+    <button class="big-btn" id="enter-btn" onclick="checkPasscode()"><span class="en-show">Enter</span><span class="zh-show">进入</span></button>
+    <p id="passcode-status" class="status-msg"></p>
     <p id="passcode-error"></p>
   </div>
 
   <div id="dashboard">
     <div class="week-nav">
-      <button id="prev-week-btn" onclick="shiftWeek(-7)">← <span class="en-show">Back</span><span class="zh-show">上一周</span></button>
-      <button onclick="shiftWeek(0, true)"><span class="en-show">Today</span><span class="zh-show">今天</span></button>
-      <button onclick="shiftWeek(7)"><span class="en-show">Next</span><span class="zh-show">下一周</span> →</button>
+      <button id="prev-week-btn" onclick="shiftWeek(-1)">← <span class="en-show">Back</span><span class="zh-show">上一周</span></button>
+      <button onclick="shiftWeek(0, true)"><span class="en-show">This Week</span><span class="zh-show">本周</span></button>
+      <button onclick="shiftWeek(1)"><span class="en-show">Next</span><span class="zh-show">下一周</span> →</button>
     </div>
     <div id="days-container"></div>
   </div>
@@ -104,7 +106,14 @@ function escapeHtml(str) {
   div.textContent = String(str ?? '');
   return div.innerHTML;
 }
-let weekStartOffset = 0; // days from today
+let weekOffset = 0; // weeks from the current week (0 = this week, -1 = last week, etc.)
+
+// Guards against the auto-login (fires on page load using a cached
+// passcode) and a manual submit racing each other — especially once Render's
+// free-tier backend is cold and a request can take 20-50+ seconds. Whichever
+// attempt is LATEST wins; a slow, stale response is ignored instead of
+// silently flipping the screen to "logged in".
+let authAttemptId = 0;
 
 function isZh() { return document.body.classList.contains('zh'); }
 
@@ -115,56 +124,102 @@ function setLang(lang) {
   if (document.getElementById('dashboard').style.display === 'block') renderWeek();
 }
 
+function showDashboard() {
+  document.getElementById('passcode-screen').style.display = 'none';
+  document.getElementById('dashboard').style.display = 'block';
+  renderWeek();
+}
+
 async function checkPasscode() {
   const input = document.getElementById('passcode-input').value.trim();
   const errorEl = document.getElementById('passcode-error');
+  const statusEl = document.getElementById('passcode-status');
+  const enterBtn = document.getElementById('enter-btn');
+  const myAttempt = ++authAttemptId; // supersedes any in-flight auto-login or earlier submit
   errorEl.textContent = '';
+  statusEl.textContent = isZh() ? '正在检查密码…' : 'Checking passcode…';
+  enterBtn.disabled = true;
+  enterBtn.textContent = isZh() ? '正在检查…' : 'Checking…';
 
   try {
     const res = await fetch(`${API_BASE}/api/admin/verify`, { headers: { 'X-Admin-Passcode': input } });
+    if (myAttempt !== authAttemptId) return; // a newer attempt has already taken over
+
     if (!res.ok) {
+      statusEl.textContent = '';
       errorEl.textContent = isZh() ? '密码错误，请重试。' : 'Incorrect passcode — please try again.';
       return;
     }
+    statusEl.textContent = isZh() ? '密码正确 ✓' : 'Passcode correct ✓';
     passcode = input;
     localStorage.setItem('harmony_admin_passcode', passcode);
-    document.getElementById('passcode-screen').style.display = 'none';
-    document.getElementById('dashboard').style.display = 'block';
-    renderWeek();
+    showDashboard();
   } catch (err) {
+    if (myAttempt !== authAttemptId) return;
+    statusEl.textContent = '';
     errorEl.textContent = isZh() ? '网络错误，请重试。' : 'Network error — please try again.';
+  } finally {
+    if (myAttempt === authAttemptId) {
+      enterBtn.disabled = false;
+      enterBtn.innerHTML = '<span class="en-show">Enter</span><span class="zh-show">进入</span>';
+    }
   }
 }
 
-// Auto-login if passcode already saved from a previous visit
+// Auto-login if a passcode was saved from a previous visit. If it turns out
+// to be wrong (e.g. it was rotated), clear it immediately instead of
+// leaving a dead passcode in localStorage that keeps quietly re-trying —
+// and never let this overwrite a manual attempt that's already in progress.
 window.addEventListener('DOMContentLoaded', async () => {
   if (!passcode) return;
+  const myAttempt = ++authAttemptId;
+  const statusEl = document.getElementById('passcode-status');
+  statusEl.textContent = isZh() ? '正在使用已保存的密码…' : 'Checking saved passcode…';
   try {
     const res = await fetch(`${API_BASE}/api/admin/verify`, { headers: { 'X-Admin-Passcode': passcode } });
+    if (myAttempt !== authAttemptId) return;
     if (res.ok) {
-      document.getElementById('passcode-screen').style.display = 'none';
-      document.getElementById('dashboard').style.display = 'block';
-      renderWeek();
+      statusEl.textContent = isZh() ? '密码正确 ✓' : 'Passcode correct ✓';
+      showDashboard();
+    } else {
+      localStorage.removeItem('harmony_admin_passcode');
+      passcode = '';
+      statusEl.textContent = isZh() ? '已保存的密码已失效，请重新输入。' : 'Saved passcode no longer works — please enter it again.';
     }
-  } catch (err) { /* stay on passcode screen */ }
+  } catch (err) {
+    if (myAttempt !== authAttemptId) return;
+    statusEl.textContent = ''; // network hiccup on the silent auto-login — stay on passcode screen, don't clear it
+  }
 });
 
-function shiftWeek(days, resetToToday) {
-  weekStartOffset = resetToToday ? 0 : weekStartOffset + days;
-  if (weekStartOffset < 0) weekStartOffset = 0; // never navigate before today
+// weekOffset counts whole WEEKS from the current week, not days from today —
+// this lets the grid always start on Monday and lets her page back through
+// past weeks (e.g. to check a past booking), not just forward.
+function shiftWeek(weeks, resetToToday) {
+  weekOffset = resetToToday ? 0 : weekOffset + weeks;
   renderWeek();
+}
+
+// Monday of (this week + offset weeks), at local midnight.
+function getWeekStart(offset) {
+  const d = new Date();
+  const day = d.getDay(); // 0 = Sunday ... 6 = Saturday
+  const diffToMonday = day === 0 ? -6 : 1 - day;
+  d.setHours(0, 0, 0, 0);
+  d.setDate(d.getDate() + diffToMonday + offset * 7);
+  return d;
 }
 
 function fmtDate(d) { return d.toISOString().split('T')[0]; }
 
 async function renderWeek() {
-  document.getElementById('prev-week-btn').disabled = weekStartOffset <= 0;
   const container = document.getElementById('days-container');
   container.innerHTML = '';
+  const weekStart = getWeekStart(weekOffset);
 
   for (let i = 0; i < 7; i++) {
-    const d = new Date();
-    d.setDate(d.getDate() + weekStartOffset + i);
+    const d = new Date(weekStart);
+    d.setDate(d.getDate() + i);
     const dateStr = fmtDate(d);
     const dayLabel = d.toLocaleDateString(isZh() ? 'zh-CN' : 'en-US', { weekday: 'long', month: 'short', day: 'numeric' });
 
@@ -234,7 +289,7 @@ async function loadDay(dateStr) {
       });
     }
 
-    if (data.businessHours) {
+    {
       html += `<button class="add-block-btn" onclick="toggleAddForm('${dateStr}')">+ ${isZh() ? '添加不可预约时间' : 'Add busy time'}</button>
         <div class="add-block-form" id="form-${dateStr}">
           <div class="form-row-inline">
