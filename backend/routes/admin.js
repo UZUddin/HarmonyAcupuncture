@@ -1,7 +1,7 @@
 const express = require('express');
 const { z } = require('zod');
 const requireAdminPasscode = require('../middleware/requireAdminPasscode');
-const { listDayEvents, createBlockEvent, deleteEvent, updateEventTime, cancelPatientAppointment, BUSINESS_HOURS } = require('../services/googleCalendar');
+const { listDayEvents, createBlockEvent, createOpenOverrideEvent, getOpenWindows, deleteEvent, updateEventTime, cancelPatientAppointment } = require('../services/googleCalendar');
 
 const router = express.Router();
 
@@ -18,16 +18,15 @@ router.get('/day', async (req, res, next) => {
       return res.status(400).json({ error: 'A valid date (YYYY-MM-DD) is required.' });
     }
 
-    const dayOfWeek = new Date(`${date}T00:00:00`).getDay();
     const dayStart = new Date(`${date}T00:00:00`);
     const dayEnd = new Date(`${date}T23:59:59`);
 
-    const events = await listDayEvents(dayStart, dayEnd);
+    const [events, openWindows] = await Promise.all([
+      listDayEvents(dayStart, dayEnd),
+      getOpenWindows(dayStart, dayEnd),
+    ]);
 
-    res.json({
-      businessHours: BUSINESS_HOURS[dayOfWeek], // null if closed that day
-      events,
-    });
+    res.json({ openWindows, events });
   } catch (err) {
     next(err);
   }
@@ -59,6 +58,30 @@ router.post('/block', async (req, res, next) => {
     }
 
     const eventId = await createBlockEvent({ summary: label, start, end });
+    res.status(201).json({ eventId });
+  } catch (err) {
+    next(err);
+  }
+});
+
+// Opens up bookable time on a date that's normally closed or outside her
+// standing hours (e.g. a Sunday, or staying late) — a one-off exception,
+// not a change to her regular weekly schedule.
+router.post('/open-time', async (req, res, next) => {
+  try {
+    const parsed = blockSchema.safeParse(req.body);
+    if (!parsed.success) {
+      return res.status(400).json({ error: parsed.error.errors[0].message });
+    }
+    const { date, start_time, end_time, label } = parsed.data;
+    const start = new Date(`${date}T${start_time}`);
+    const end = new Date(`${date}T${end_time}`);
+
+    if (end <= start) {
+      return res.status(400).json({ error: 'End time must be after start time.' });
+    }
+
+    const eventId = await createOpenOverrideEvent({ summary: label, start, end });
     res.status(201).json({ eventId });
   } catch (err) {
     next(err);
